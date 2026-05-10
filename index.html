@@ -3,970 +3,638 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Room 965 — Your Home Away From Home</title>
+  <title>Room 965 — Air Residences Makati</title>
   <style>
-    /* ── Reset & Base ─────────────────────────────────────── */
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-    html {
-      scroll-behavior: smooth;
-      scroll-padding-top: 60px;
+    :root {
+      --bg: #f5f5f7;
+      --bg-white: #ffffff;
+      --headline: #1d1d1f;
+      --body: #6e6e73;
+      --blue: #0071e3;
+      --blue-hover: #0077ed;
+      --radius: 20px;
+      --shadow: 0 2px 20px rgba(0,0,0,0.07);
+      --shadow-md: 0 4px 32px rgba(0,0,0,0.10);
+      --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
     }
+
+    html { scroll-behavior: smooth; }
 
     body {
-      font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Helvetica Neue', Arial, sans-serif;
-      background: #ffffff;
-      color: #1d1d1f;
-      line-height: 1.6;
+      font-family: var(--font);
+      background: var(--bg);
+      color: var(--headline);
       min-height: 100vh;
+      padding-bottom: 90px;
       -webkit-font-smoothing: antialiased;
-      -moz-osx-font-smoothing: grayscale;
     }
 
-    /* ── Hero ─────────────────────────────────────────────── */
+    /* ── STICKY TOP NAV ─────────────────────────────────────── */
+    .top-nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(255,255,255,0.85);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      padding: 0 16px;
+      overflow-x: auto;
+      scrollbar-width: none;
+      display: flex;
+      gap: 4px;
+      white-space: nowrap;
+    }
+    .top-nav::-webkit-scrollbar { display: none; }
+
+    .nav-tab {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      padding: 12px 14px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--body);
+      background: none;
+      border: none;
+      cursor: pointer;
+      border-bottom: 2px solid transparent;
+      transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
+      font-family: var(--font);
+      white-space: nowrap;
+    }
+    .nav-tab:hover { color: var(--headline); }
+    .nav-tab.active {
+      color: var(--blue);
+      border-bottom-color: var(--blue);
+      font-weight: 600;
+    }
+
+    /* ── HERO ───────────────────────────────────────────────── */
     .hero {
-      background: linear-gradient(160deg, #1d1d1f 0%, #2d2d30 60%, #1a1a2e 100%);
-      color: #ffffff;
-      padding: 90px 24px 80px;
+      background: linear-gradient(160deg, #1d1d1f 0%, #2c2c2e 40%, #3a3a3c 100%);
+      color: #fff;
+      padding: 56px 24px 64px;
       text-align: center;
       position: relative;
       overflow: hidden;
     }
-
     .hero::before {
       content: '';
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse at 30% 50%, rgba(0,113,227,0.18) 0%, transparent 60%),
-                  radial-gradient(ellipse at 80% 20%, rgba(0,113,227,0.10) 0%, transparent 50%);
+      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,113,227,0.18) 0%, transparent 70%);
       pointer-events: none;
     }
-
     .hero-eyebrow {
       font-size: 12px;
       font-weight: 600;
       letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: #0071e3;
-      margin-bottom: 14px;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 12px;
       opacity: 0;
       transform: translateY(20px);
-      animation: heroFadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.1s forwards;
+      animation: fadeUp 0.7s var(--ease) 0.1s forwards;
     }
-
     .hero h1 {
-      font-size: clamp(48px, 10vw, 72px);
+      font-size: 48px;
       font-weight: 700;
-      letter-spacing: -0.03em;
+      letter-spacing: -0.02em;
       line-height: 1.05;
-      color: #f5f5f7;
-      margin-bottom: 16px;
+      color: #fff;
       opacity: 0;
       transform: translateY(24px);
-      animation: heroFadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.25s forwards;
+      animation: fadeUp 0.7s var(--ease) 0.25s forwards;
     }
-
-    .hero p {
-      font-size: 18px;
+    .hero-sub {
+      font-size: 17px;
+      color: rgba(255,255,255,0.65);
+      margin-top: 12px;
       font-weight: 400;
-      color: rgba(245,245,247,0.65);
-      letter-spacing: -0.01em;
       opacity: 0;
       transform: translateY(20px);
-      animation: heroFadeUp 0.8s cubic-bezier(0.25,0.46,0.45,0.94) 0.4s forwards;
+      animation: fadeUp 0.7s var(--ease) 0.4s forwards;
+    }
+    .hero-pills {
+      display: flex;
+      justify-content: center;
+      gap: 10px;
+      margin-top: 28px;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(16px);
+      animation: fadeUp 0.7s var(--ease) 0.55s forwards;
+    }
+    .hero-pill {
+      background: rgba(255,255,255,0.10);
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.15);
+      border-radius: 100px;
+      padding: 8px 16px;
+      font-size: 13px;
+      color: rgba(255,255,255,0.85);
+      font-weight: 500;
     }
 
-    @keyframes heroFadeUp {
+    @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── Container ────────────────────────────────────────── */
+    /* ── CONTAINER ──────────────────────────────────────────── */
     .container {
-      max-width: 680px;
+      max-width: 640px;
       margin: 0 auto;
-      padding: 0 16px 120px;
+      padding: 24px 16px 16px;
     }
 
-    /* ── Quick Bar ────────────────────────────────────────── */
-    .quick-bar {
-      display: flex;
-      justify-content: space-around;
-      background: #f5f5f7;
-      border-radius: 20px;
-      padding: 20px 16px;
-      margin: 24px 0 20px;
-      gap: 12px;
-    }
-
-    .quick-item {
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      gap: 4px;
-      flex: 1;
-    }
-
-    .qi-icon {
-      font-size: 22px;
-      line-height: 1;
-      margin-bottom: 2px;
-    }
-
-    .qi-label {
-      font-size: 11px;
-      font-weight: 500;
-      color: #6e6e73;
-      letter-spacing: 0.02em;
-    }
-
-    .qi-val {
-      font-size: 15px;
-      font-weight: 600;
-      color: #1d1d1f;
-      letter-spacing: -0.02em;
-    }
-
-    /* ── Top Nav Tabs ─────────────────────────────────────── */
-    .nav-tabs-wrap {
-      position: sticky;
-      top: 0;
-      z-index: 90;
-      background: rgba(255,255,255,0.85);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-bottom: 1px solid rgba(0,0,0,0.08);
-      margin: 0 -16px;
-      padding: 0 16px;
-    }
-
-    .nav-tabs {
-      display: flex;
-      gap: 4px;
-      overflow-x: auto;
-      padding: 10px 0;
-      scrollbar-width: none;
-      -ms-overflow-style: none;
-    }
-
-    .nav-tabs::-webkit-scrollbar { display: none; }
-
-    .nav-tab {
-      flex-shrink: 0;
-      background: none;
-      border: none;
-      padding: 7px 14px;
-      border-radius: 20px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #6e6e73;
-      cursor: pointer;
-      font-family: inherit;
-      letter-spacing: -0.01em;
-      transition: all 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
-      white-space: nowrap;
-    }
-
-    .nav-tab:hover { color: #1d1d1f; background: #f5f5f7; }
-
-    .nav-tab.active {
-      background: #1d1d1f;
-      color: #ffffff;
-    }
-
-    /* ── Sections ─────────────────────────────────────────── */
-    .section {
-      display: none;
-      transition: opacity 0.25s ease, transform 0.25s ease;
-    }
-
+    /* ── SECTIONS ───────────────────────────────────────────── */
+    .section { display: none; }
     .section.visible { display: block; }
 
-    /* ── Cards ────────────────────────────────────────────── */
+    /* ── CARDS ──────────────────────────────────────────────── */
     .card {
-      background: #ffffff;
-      border-radius: 20px;
+      background: var(--bg-white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
       padding: 24px;
       margin-bottom: 16px;
-      box-shadow: 0 2px 20px rgba(0,0,0,0.07), 0 0 0 1px rgba(0,0,0,0.04);
       opacity: 0;
       transform: translateY(30px);
-      transition: opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94),
-                  transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94),
-                  box-shadow 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), box-shadow 0.3s var(--ease);
     }
+    .card.in-view { opacity: 1; transform: translateY(0); }
+    .card:hover { box-shadow: var(--shadow-md); }
 
-    .card:hover {
-      box-shadow: 0 4px 32px rgba(0,0,0,0.11), 0 0 0 1px rgba(0,0,0,0.05);
-    }
-
-    .card.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    .card.accent-blue {
-      background: linear-gradient(135deg, #f0f6ff 0%, #e8f2ff 100%);
-      box-shadow: 0 2px 20px rgba(0,113,227,0.10), 0 0 0 1px rgba(0,113,227,0.12);
-    }
-
-    .card.accent-warning {
-      background: linear-gradient(135deg, #fffbf0 0%, #fff6e0 100%);
-      box-shadow: 0 2px 20px rgba(255,149,0,0.10), 0 0 0 1px rgba(255,149,0,0.14);
-    }
-
-    /* Stagger delays */
     .card:nth-child(1) { transition-delay: 0ms; }
     .card:nth-child(2) { transition-delay: 80ms; }
     .card:nth-child(3) { transition-delay: 160ms; }
     .card:nth-child(4) { transition-delay: 240ms; }
     .card:nth-child(5) { transition-delay: 320ms; }
-    .card:nth-child(6) { transition-delay: 400ms; }
 
-    .animate-in {
-      opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s cubic-bezier(0.25,0.46,0.45,0.94),
-                  transform 0.6s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-
-    .animate-in.in-view {
-      opacity: 1;
-      transform: translateY(0);
-    }
-
-    /* ── Card Title ───────────────────────────────────────── */
     .card-title {
       font-size: 17px;
       font-weight: 600;
-      color: #1d1d1f;
-      letter-spacing: -0.02em;
-      margin-bottom: 18px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-    }
-
-    .card-title-icon {
-      width: 30px;
-      height: 30px;
-      border-radius: 8px;
-      background: #f5f5f7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      flex-shrink: 0;
-    }
-
-    /* ── Info Rows ────────────────────────────────────────── */
-    .info-row {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-      padding: 14px 0;
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .info-row:last-child { border-bottom: none; }
-
-    .info-icon {
-      font-size: 18px;
-      width: 36px;
-      height: 36px;
-      background: #f5f5f7;
-      border-radius: 10px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .info-label {
-      font-size: 12px;
-      font-weight: 500;
-      color: #6e6e73;
-      letter-spacing: 0.02em;
-      text-transform: uppercase;
-      margin-bottom: 4px;
-    }
-
-    .info-val {
-      font-size: 15px;
-      font-weight: 500;
-      color: #1d1d1f;
-      line-height: 1.5;
-    }
-
-    /* ── Step List ────────────────────────────────────────── */
-    .step-list { counter-reset: steps; }
-
-    .step {
-      display: flex;
-      gap: 16px;
-      padding: 16px 0;
-      border-bottom: 1px solid #f0f0f0;
-      align-items: flex-start;
-    }
-
-    .step:last-child { border-bottom: none; }
-
-    .step-num {
-      counter-increment: steps;
-      width: 30px;
-      height: 30px;
-      border-radius: 50%;
-      background: #0071e3;
-      color: #ffffff;
-      font-size: 13px;
-      font-weight: 600;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .step-num::before { content: counter(steps); }
-
-    .step-text { font-size: 15px; padding-top: 4px; }
-
-    .step-text strong {
-      font-weight: 600;
-      display: block;
-      margin-bottom: 4px;
-      color: #1d1d1f;
+      color: var(--headline);
+      margin-bottom: 16px;
       letter-spacing: -0.01em;
     }
 
-    .step-text span {
-      color: #6e6e73;
-      font-size: 14px;
-      line-height: 1.55;
+    /* ── HIGHLIGHT CARD ─────────────────────────────────────── */
+    .card-highlight {
+      background: linear-gradient(135deg, #fafafa, #f5f5f7);
+      border-left: 3px solid var(--blue);
     }
+    .card-highlight .card-title { color: var(--blue); }
 
-    /* ── Accordion ────────────────────────────────────────── */
+    /* ── AMBER NOTICE CARD ──────────────────────────────────── */
+    .card-notice {
+      background: linear-gradient(135deg, #fffbf0, #fff8e7);
+      border-left: 3px solid #f0a500;
+    }
+    .card-notice .card-title { color: #b07800; }
+
+    /* ── INFO ROWS ──────────────────────────────────────────── */
+    .info-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 14px;
+      padding: 12px 0;
+      border-bottom: 1px solid #f5f5f7;
+    }
+    .info-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .info-row:first-of-type { padding-top: 0; }
+    .info-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
+    .info-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--body); margin-bottom: 3px; }
+    .info-val { font-size: 15px; font-weight: 500; color: var(--headline); line-height: 1.5; }
+    .info-val small { font-size: 13px; font-weight: 400; color: var(--body); }
+
+    /* ── STEP LIST ──────────────────────────────────────────── */
+    .step-list { display: flex; flex-direction: column; gap: 0; }
+    .step {
+      display: flex;
+      gap: 14px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f5f5f7;
+      align-items: flex-start;
+    }
+    .step:last-child { border-bottom: none; padding-bottom: 0; }
+    .step-num {
+      width: 28px; height: 28px;
+      border-radius: 50%;
+      background: var(--blue);
+      color: #fff;
+      font-size: 13px;
+      font-weight: 700;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      counter-increment: step-counter;
+    }
+    .step-list { counter-reset: step-counter; }
+    .step-num::before { content: counter(step-counter); }
+    .step-text { font-size: 14px; color: var(--body); line-height: 1.6; padding-top: 4px; }
+    .step-text strong { color: var(--headline); display: block; margin-bottom: 2px; font-weight: 600; }
+    .step-text span { display: block; }
+
+    /* ── RULES GRID ─────────────────────────────────────────── */
+    .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
+    .rule-tag {
+      display: flex; align-items: center; gap: 8px;
+      padding: 12px 14px;
+      border-radius: 14px;
+      font-size: 13px;
+      font-weight: 500;
+    }
+    .rule-tag.allowed { background: #f0fdf4; color: #166534; }
+    .rule-tag.disallowed { background: #fef2f2; color: #991b1b; }
+    .rt-icon { font-size: 16px; }
+
+    /* ── ACCORDION ──────────────────────────────────────────── */
     .accordion-item {
-      border-bottom: 1px solid #f0f0f0;
+      border-bottom: 1px solid #f5f5f7;
     }
-
     .accordion-item:last-child { border-bottom: none; }
-
     .accordion-trigger {
       width: 100%;
-      background: none;
-      border: none;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0;
+      padding: 14px 0;
+      background: none;
+      border: none;
       cursor: pointer;
+      font-family: var(--font);
       text-align: left;
-      gap: 12px;
-      font-family: inherit;
     }
-
-    .accordion-trigger-left {
-      display: flex;
-      align-items: center;
-      gap: 12px;
-    }
-
-    .acc-icon {
-      font-size: 18px;
-      width: 32px;
-      height: 32px;
-      background: #f5f5f7;
-      border-radius: 8px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .acc-label {
-      font-size: 15px;
-      font-weight: 500;
-      color: #1d1d1f;
-      letter-spacing: -0.01em;
-    }
-
+    .accordion-trigger-left { display: flex; align-items: center; gap: 10px; }
+    .acc-icon { font-size: 18px; }
+    .acc-label { font-size: 15px; font-weight: 600; color: var(--headline); }
     .acc-arrow {
-      width: 22px;
-      height: 22px;
-      border-radius: 50%;
-      background: #f5f5f7;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: transform 0.3s cubic-bezier(0.25,0.46,0.45,0.94), background 0.2s;
+      font-size: 11px;
+      color: var(--body);
+      transition: transform 0.3s var(--ease);
     }
-
-    .acc-arrow svg {
-      width: 10px;
-      height: 10px;
-      stroke: #6e6e73;
-      fill: none;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-    }
-
-    .accordion-item.open .acc-arrow {
-      transform: rotate(180deg);
-      background: #e8e8ed;
-    }
-
+    .accordion-item.open .acc-arrow { transform: rotate(180deg); }
     .accordion-body {
-      display: none;
-      padding: 4px 0 18px 44px;
       font-size: 14px;
-      color: #6e6e73;
-      line-height: 1.75;
+      color: var(--body);
+      line-height: 1.7;
+      padding: 0 0 16px;
+      display: none;
     }
-
     .accordion-item.open .accordion-body { display: block; }
 
-    /* ── Rules Grid ───────────────────────────────────────── */
-    .rules-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .rule-tag {
+    /* ── PLACE ITEMS ────────────────────────────────────────── */
+    .place-item {
       display: flex;
       align-items: center;
-      gap: 8px;
-      background: #f5f5f7;
-      border-radius: 12px;
-      padding: 12px 14px;
-      font-size: 13px;
-      font-weight: 500;
-      color: #1d1d1f;
-      transition: transform 0.2s cubic-bezier(0.25,0.46,0.45,0.94);
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid #f5f5f7;
+    }
+    .place-item:last-child { border-bottom: none; }
+    .place-icon { font-size: 22px; flex-shrink: 0; }
+    .place-info { flex: 1; }
+    .place-name { font-size: 14px; font-weight: 600; color: var(--headline); }
+    .place-meta { font-size: 12px; color: var(--body); margin-top: 1px; }
+    .place-dist {
+      font-size: 12px;
+      font-weight: 600;
+      color: var(--blue);
+      background: #eff6ff;
+      padding: 4px 8px;
+      border-radius: 8px;
+      white-space: nowrap;
+      flex-shrink: 0;
     }
 
-    .rule-tag:hover { transform: scale(1.02); }
-
-    .rule-tag.allowed {
-      background: #f0faf0;
-      color: #1a6b2a;
+    /* ── MAP PLACEHOLDER ────────────────────────────────────── */
+    .map-link {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      background: #eff6ff;
+      border-radius: 14px;
+      padding: 18px;
+      margin-bottom: 16px;
+      color: var(--blue);
+      font-size: 15px;
+      font-weight: 600;
+      text-decoration: none;
+      transition: background 0.25s var(--ease);
     }
+    .map-link:hover { background: #dbeafe; }
 
-    .rule-tag.disallowed {
-      background: #fff2f0;
-      color: #8b1a0a;
-    }
-
-    .rule-tag .rt-icon { font-size: 16px; flex-shrink: 0; }
-
-    /* ── Contact Cards ────────────────────────────────────── */
+    /* ── CONTACT CARDS ──────────────────────────────────────── */
     .contact-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 16px 0;
-      border-bottom: 1px solid #f0f0f0;
+      gap: 12px;
+      padding: 14px 0;
+      border-bottom: 1px solid #f5f5f7;
     }
-
-    .contact-card:last-child { border-bottom: none; }
-
-    .contact-left {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-    }
-
+    .contact-card:last-child { border-bottom: none; padding-bottom: 0; }
+    .contact-left { display: flex; align-items: center; gap: 12px; }
     .contact-avatar {
-      width: 46px;
-      height: 46px;
+      width: 44px; height: 44px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #e8f2ff, #d0e8ff);
-      display: flex;
-      align-items: center;
-      justify-content: center;
+      background: linear-gradient(135deg, #e8f4fd, #dbeafe);
+      display: flex; align-items: center; justify-content: center;
       font-size: 22px;
       flex-shrink: 0;
     }
-
-    .contact-name {
-      font-size: 15px;
-      font-weight: 600;
-      color: #1d1d1f;
-      letter-spacing: -0.01em;
-    }
-
-    .contact-role {
-      font-size: 12px;
-      color: #6e6e73;
-      margin-top: 2px;
-    }
-
-    .contact-actions { display: flex; gap: 10px; }
-
+    .contact-name { font-size: 15px; font-weight: 600; color: var(--headline); }
+    .contact-role { font-size: 12px; color: var(--body); margin-top: 1px; }
+    .contact-actions { display: flex; gap: 8px; }
     .contact-btn {
-      width: 38px;
-      height: 38px;
+      width: 40px; height: 40px;
       border-radius: 50%;
-      border: none;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 16px;
-      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 18px;
       text-decoration: none;
-      transition: transform 0.2s cubic-bezier(0.25,0.46,0.45,0.94), opacity 0.2s;
+      transition: transform 0.2s var(--ease), opacity 0.2s;
     }
-
     .contact-btn:hover { transform: scale(1.1); }
-    .contact-btn:active { transform: scale(0.92); opacity: 0.8; }
+    .btn-msg { background: #e8f5e9; }
+    .btn-call { background: #eff6ff; }
 
-    .btn-call { background: #0071e3; color: white; }
-    .btn-msg { background: #f5f5f7; color: #1d1d1f; }
-
-    /* ── Map Placeholder ──────────────────────────────────── */
-    .map-placeholder {
-      background: linear-gradient(135deg, #e8f2ff, #d8ecff);
-      border-radius: 16px;
-      height: 150px;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      gap: 10px;
-      font-size: 14px;
-      font-weight: 500;
-      color: #0071e3;
-      margin-bottom: 20px;
-      cursor: pointer;
-      text-decoration: none;
-      transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94), box-shadow 0.25s;
-      letter-spacing: -0.01em;
-    }
-
-    .map-placeholder:hover {
-      transform: scale(1.02);
-      box-shadow: 0 8px 30px rgba(0,113,227,0.2);
-    }
-
-    .map-placeholder span:first-child { font-size: 36px; }
-
-    /* ── Place Items ──────────────────────────────────────── */
-    .place-item {
+    /* ── SOS BANNER ─────────────────────────────────────────── */
+    .sos-banner {
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid #f0f0f0;
-    }
-
-    .place-item:last-child { border-bottom: none; }
-
-    .place-icon {
-      font-size: 18px;
-      width: 34px;
-      height: 34px;
-      background: #f5f5f7;
-      border-radius: 9px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
-
-    .place-info { flex: 1; }
-
-    .place-name {
-      font-size: 14px;
-      font-weight: 500;
-      color: #1d1d1f;
-      letter-spacing: -0.01em;
-    }
-
-    .place-meta {
-      font-size: 12px;
-      color: #6e6e73;
-      margin-top: 2px;
-    }
-
-    .place-dist {
-      font-size: 12px;
-      font-weight: 500;
-      background: #f5f5f7;
-      color: #6e6e73;
-      padding: 4px 10px;
-      border-radius: 20px;
-      flex-shrink: 0;
-      letter-spacing: 0.01em;
-    }
-
-    /* ── SOS Banner ───────────────────────────────────────── */
-    .sos-banner {
-      background: linear-gradient(135deg, #fff2f0, #ffe8e4);
-      border: 1.5px solid rgba(255,59,48,0.2);
-      border-radius: 18px;
-      padding: 16px 20px;
-      display: flex;
-      align-items: center;
-      gap: 16px;
+      background: linear-gradient(135deg, #fff1f0, #fde8e8);
+      border: 1.5px solid #fca5a5;
+      border-radius: var(--radius);
+      padding: 18px 20px;
       margin-bottom: 16px;
       text-decoration: none;
-      transition: transform 0.2s cubic-bezier(0.25,0.46,0.45,0.94);
+      transition: all 0.3s var(--ease);
     }
-
-    .sos-banner:hover { transform: scale(1.01); }
-
+    .sos-banner:hover { transform: scale(1.01); box-shadow: 0 4px 20px rgba(220,38,38,0.15); }
     .sos-icon { font-size: 32px; }
+    .sos-title { font-size: 16px; font-weight: 700; color: #991b1b; }
+    .sos-sub { font-size: 13px; color: #b91c1c; margin-top: 2px; }
 
-    .sos-text .sos-title {
-      font-size: 15px;
-      font-weight: 700;
-      color: #cc0000;
-      letter-spacing: -0.01em;
-    }
-
-    .sos-text .sos-sub {
-      font-size: 13px;
-      color: #a00000;
-      margin-top: 2px;
-    }
-
-    /* ── CTA Buttons ──────────────────────────────────────── */
+    /* ── CTA BUTTONS ────────────────────────────────────────── */
     .cta-btn {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      width: 100%;
       padding: 14px 20px;
       border-radius: 14px;
-      border: none;
       font-size: 15px;
       font-weight: 600;
-      font-family: inherit;
-      letter-spacing: -0.01em;
-      cursor: pointer;
       text-decoration: none;
-      transition: all 0.3s cubic-bezier(0.25,0.46,0.45,0.94);
-      margin-top: 12px;
+      transition: all 0.3s var(--ease);
+      cursor: pointer;
+      border: none;
+      font-family: var(--font);
+      margin-bottom: 8px;
     }
-
-    .cta-btn:hover { transform: scale(1.01); }
-    .cta-btn:active { transform: scale(0.98); opacity: 0.88; }
-
     .cta-primary {
-      background: #0071e3;
-      color: #ffffff;
+      background: var(--blue);
+      color: #fff;
     }
-
     .cta-primary:hover {
-      background: #0077ed;
-      box-shadow: 0 4px 20px rgba(0,113,227,0.35);
+      background: var(--blue-hover);
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(0,113,227,0.3);
     }
-
     .cta-secondary {
       background: #f5f5f7;
-      color: #1d1d1f;
+      color: var(--headline);
     }
-
     .cta-secondary:hover {
       background: #e8e8ed;
+      transform: translateY(-1px);
+    }
+    .cta-green {
+      background: #34c759;
+      color: #fff;
+    }
+    .cta-green:hover {
+      background: #2db84e;
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px rgba(52,199,89,0.3);
     }
 
-    .cta-outline {
-      background: transparent;
-      color: #0071e3;
-      border: 1.5px solid #0071e3;
+    /* ── WIFI DISPLAY ───────────────────────────────────────── */
+    .wifi-block {
+      background: linear-gradient(135deg, #1d1d1f, #2c2c2e);
+      border-radius: 16px;
+      padding: 20px;
+      margin-bottom: 16px;
+      color: #fff;
     }
-
-    .cta-outline:hover {
-      background: #f0f6ff;
-    }
-
-    /* ── Copy Button ──────────────────────────────────────── */
-    .copy-wrap { position: relative; display: inline-block; }
-
+    .wifi-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 4px; }
+    .wifi-val { font-size: 20px; font-weight: 700; letter-spacing: 0.03em; color: #fff; font-family: 'SF Mono', 'Monaco', monospace; }
+    .wifi-row { margin-bottom: 16px; }
+    .wifi-row:last-of-type { margin-bottom: 0; }
+    .copy-wrap { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
     .copy-btn {
-      background: #f5f5f7;
-      border: none;
+      background: rgba(255,255,255,0.15);
+      color: #fff;
+      border: 1px solid rgba(255,255,255,0.2);
       border-radius: 8px;
-      padding: 5px 12px;
-      font-size: 12px;
-      font-weight: 500;
+      padding: 6px 14px;
+      font-size: 13px;
+      font-weight: 600;
       cursor: pointer;
-      margin-left: 10px;
-      transition: all 0.2s;
-      color: #0071e3;
-      font-family: inherit;
+      font-family: var(--font);
+      transition: background 0.2s;
     }
-
-    .copy-btn:hover { background: #e8f2ff; }
-
+    .copy-btn:hover { background: rgba(255,255,255,0.25); }
     .copy-toast {
-      position: absolute;
-      top: -32px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: #1d1d1f;
-      color: #ffffff;
-      font-size: 11px;
-      font-weight: 500;
-      padding: 5px 10px;
-      border-radius: 8px;
-      white-space: nowrap;
+      font-size: 12px;
+      color: #34c759;
       opacity: 0;
-      pointer-events: none;
+      font-weight: 600;
       transition: opacity 0.2s;
     }
-
     .copy-toast.show { opacity: 1; }
 
-    /* ── Bottom Nav ───────────────────────────────────────── */
-    .bottom-nav {
-      position: fixed;
-      bottom: 0;
-      left: 0;
-      right: 0;
-      background: rgba(255,255,255,0.88);
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      border-top: 1px solid rgba(0,0,0,0.08);
+    /* ── CHECKLIST ──────────────────────────────────────────── */
+    .checklist-item {
       display: flex;
-      justify-content: space-around;
-      padding: 10px 0 max(env(safe-area-inset-bottom, 0px), 10px);
-      z-index: 100;
-      box-shadow: 0 -1px 0 rgba(0,0,0,0.06);
+      align-items: center;
+      gap: 14px;
+      padding: 13px 0;
+      border-bottom: 1px solid #f5f5f7;
+      cursor: pointer;
+      transition: opacity 0.2s;
+    }
+    .checklist-item:last-child { border-bottom: none; }
+    .check-circle {
+      width: 24px; height: 24px;
+      border-radius: 50%;
+      border: 2px solid #d1d1d6;
+      background: transparent;
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      transition: all 0.25s var(--ease);
+      font-size: 12px;
+      font-weight: 700;
+      color: transparent;
+    }
+    .checklist-item.done .check-circle {
+      background: #34c759;
+      border-color: #34c759;
+      color: #fff;
+    }
+    .checklist-item.done { opacity: 0.55; }
+    .checklist-item.done .check-text { text-decoration: line-through; color: var(--body); }
+    .check-text { font-size: 14px; color: var(--headline); line-height: 1.5; }
+    .checklist-progress {
+      text-align: center;
+      font-size: 13px;
+      color: var(--body);
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid #f5f5f7;
+    }
+    .progress-bar-wrap {
+      background: #f5f5f7;
+      border-radius: 100px;
+      height: 4px;
+      margin: 8px 0 6px;
+      overflow: hidden;
+    }
+    .progress-bar-fill {
+      height: 100%;
+      background: #34c759;
+      border-radius: 100px;
+      transition: width 0.4s var(--ease);
     }
 
+    /* ── BODY TEXT ──────────────────────────────────────────── */
+    .body-text {
+      font-size: 14px;
+      color: var(--body);
+      line-height: 1.75;
+    }
+    .body-text strong { color: var(--headline); }
+
+    /* ── ANIMATE-IN ─────────────────────────────────────────── */
+    .animate-in {
+      opacity: 0;
+      transform: translateY(30px);
+      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+    }
+    .animate-in.in-view { opacity: 1; transform: translateY(0); }
+
+    /* ── BOTTOM NAV ─────────────────────────────────────────── */
+    .bottom-nav {
+      position: fixed;
+      bottom: 0; left: 0; right: 0;
+      z-index: 100;
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      background: rgba(255,255,255,0.88);
+      border-top: 1px solid rgba(0,0,0,0.06);
+      display: flex;
+      justify-content: space-around;
+      align-items: stretch;
+      padding-bottom: env(safe-area-inset-bottom, 0px);
+    }
     .bn-item {
       flex: 1;
       display: flex;
       flex-direction: column;
       align-items: center;
-      gap: 4px;
+      justify-content: center;
+      gap: 3px;
+      padding: 10px 4px;
+      background: none;
+      border: none;
       cursor: pointer;
-      padding: 4px 2px;
-      border-radius: 12px;
-      transition: all 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
-      color: #aeaeb2;
       font-size: 10px;
       font-weight: 500;
-      font-family: inherit;
-      letter-spacing: 0.01em;
-      border: none;
-      background: none;
-      -webkit-tap-highlight-color: transparent;
+      color: var(--body);
+      transition: color 0.2s var(--ease);
+      font-family: var(--font);
+    }
+    .bn-icon { font-size: 20px; }
+    .bn-item.active { color: var(--blue); font-weight: 600; }
+    .bn-item:hover { color: var(--headline); }
+
+    /* ── SECTION TRANSITIONS ────────────────────────────────── */
+    .section.visible {
+      display: block;
+      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
     }
 
-    .bn-item .bn-icon {
-      font-size: 22px;
-      line-height: 1;
-      transition: transform 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-
-    .bn-item.active {
-      color: #0071e3;
-    }
-
-    .bn-item.active .bn-icon {
-      transform: scale(1.1);
-    }
-
-    /* ── Checklist ────────────────────────────────────────── */
-    .checklist-item {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid #f0f0f0;
-      cursor: pointer;
-      transition: opacity 0.2s;
-    }
-
-    .checklist-item:last-child { border-bottom: none; }
-
-    .checklist-item.done { opacity: 0.45; }
-
-    .check-circle {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 2px solid #d1d1d6;
-      background: transparent;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-      transition: all 0.25s cubic-bezier(0.25,0.46,0.45,0.94);
-    }
-
-    .checklist-item.done .check-circle {
-      background: #0071e3;
-      border-color: #0071e3;
-    }
-
-    .check-circle svg {
-      width: 12px;
-      height: 12px;
-      stroke: white;
-      fill: none;
-      stroke-width: 2.5;
-      stroke-linecap: round;
-      stroke-linejoin: round;
-      opacity: 0;
-      transition: opacity 0.2s;
-    }
-
-    .checklist-item.done .check-circle svg { opacity: 1; }
-
-    .checklist-label {
-      font-size: 15px;
-      color: #1d1d1f;
-      letter-spacing: -0.01em;
-    }
-
-    .checklist-item.done .checklist-label {
-      text-decoration: line-through;
-      color: #6e6e73;
-    }
-
-    .checklist-progress {
-      margin-top: 16px;
-      text-align: center;
-      font-size: 13px;
-      color: #6e6e73;
-    }
-
-    /* ── Wi-Fi Value ──────────────────────────────────────── */
-    .wifi-val {
-      font-size: 17px;
-      font-weight: 600;
-      color: #1d1d1f;
-      font-family: 'SF Mono', 'Menlo', 'Monaco', 'Courier New', monospace;
-      letter-spacing: 0.04em;
-      display: flex;
-      align-items: center;
-      flex-wrap: wrap;
-      gap: 4px;
-    }
-
-    /* ── Badge ────────────────────────────────────────────── */
-    .badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 4px;
-      font-size: 11px;
-      font-weight: 600;
-      padding: 4px 10px;
-      border-radius: 20px;
-      letter-spacing: 0.01em;
-    }
-
-    .badge-green { background: #f0faf0; color: #1a6b2a; }
-    .badge-blue { background: #e8f2ff; color: #0062c4; }
-
-    /* ── Section header within content ───────────────────── */
-    .section-eyebrow {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.08em;
-      text-transform: uppercase;
-      color: #6e6e73;
-      margin-bottom: 6px;
-    }
-
-    /* ── Responsive ───────────────────────────────────────── */
+    /* ── RESPONSIVE ─────────────────────────────────────────── */
     @media (min-width: 480px) {
-      .hero { padding: 110px 32px 90px; }
-      .container { padding: 0 24px 120px; }
+      .hero { padding: 72px 32px 80px; }
+      .hero h1 { font-size: 60px; }
+      .container { padding: 28px 20px 20px; }
     }
-
-    @media (max-width: 360px) {
-      .rules-grid { grid-template-columns: 1fr; }
+    @media (min-width: 640px) {
+      .rules-grid { grid-template-columns: repeat(3, 1fr); }
     }
   </style>
 </head>
 <body>
 
-<!-- ── HERO ─────────────────────────────────────────────── -->
+<!-- ── HERO ─────────────────────────────────────────────────── -->
 <div class="hero">
-  <div class="hero-eyebrow">Air Residences · Makati</div>
+  <div class="hero-eyebrow">Air Residences · Makati City</div>
   <h1>Room 965</h1>
-  <p>Everything you need for a perfect stay</p>
+  <p class="hero-sub">Everything you need for a perfect stay</p>
+  <div class="hero-pills">
+    <div class="hero-pill">🔑 Check-in 3:00 PM</div>
+    <div class="hero-pill">🧳 Check-out 12:00 PM</div>
+    <div class="hero-pill">👥 Up to 3 guests</div>
+  </div>
 </div>
 
-<!-- ── MAIN ─────────────────────────────────────────────── -->
+<!-- ── TOP NAV ────────────────────────────────────────────────── -->
+<nav class="top-nav" id="topNav">
+  <button class="nav-tab active" data-tab="arrival" onclick="showSection('arrival')">🔑 Arrival</button>
+  <button class="nav-tab" data-tab="home" onclick="showSection('home')">🏠 Home Guide</button>
+  <button class="nav-tab" data-tab="wifi" onclick="showSection('wifi')">📶 Wi-Fi</button>
+  <button class="nav-tab" data-tab="rules" onclick="showSection('rules')">📋 Rules</button>
+  <button class="nav-tab" data-tab="neighborhood" onclick="showSection('neighborhood')">📍 Area</button>
+  <button class="nav-tab" data-tab="contact" onclick="showSection('contact')">💬 Contact</button>
+  <button class="nav-tab" data-tab="checkout" onclick="showSection('checkout')">🧳 Check-out</button>
+</nav>
+
+<!-- ── MAIN ──────────────────────────────────────────────────── -->
 <div class="container">
 
-  <!-- Quick Info Bar -->
-  <div class="quick-bar animate-in">
-    <div class="quick-item">
-      <span class="qi-icon">🔑</span>
-      <div class="qi-label">Check-in</div>
-      <div class="qi-val">3:00 PM</div>
-    </div>
-    <div class="quick-item">
-      <span class="qi-icon">🧳</span>
-      <div class="qi-label">Check-out</div>
-      <div class="qi-val">12:00 PM</div>
-    </div>
-    <div class="quick-item">
-      <span class="qi-icon">👥</span>
-      <div class="qi-label">Guests</div>
-      <div class="qi-val">Up to 3</div>
-    </div>
-  </div>
-
-  <!-- Sticky Nav -->
-  <div class="nav-tabs-wrap">
-    <div class="nav-tabs" id="navTabs">
-      <button class="nav-tab active" data-tab="arrival" onclick="showSection('arrival')">Arrival</button>
-      <button class="nav-tab" data-tab="home" onclick="showSection('home')">Home Guide</button>
-      <button class="nav-tab" data-tab="wifi" onclick="showSection('wifi')">Wi-Fi</button>
-      <button class="nav-tab" data-tab="rules" onclick="showSection('rules')">Rules</button>
-      <button class="nav-tab" data-tab="neighborhood" onclick="showSection('neighborhood')">Area</button>
-      <button class="nav-tab" data-tab="contact" onclick="showSection('contact')">Contact</button>
-      <button class="nav-tab" data-tab="checkout" onclick="showSection('checkout')">Check-out</button>
-    </div>
-  </div>
-
-  <!-- ── ARRIVAL ────────────────────────────────────────── -->
+  <!-- ── ARRIVAL ─────────────────────────────────────────────── -->
   <div class="section visible" id="sec-arrival">
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">📍</span>
-        Your Address
-      </div>
+      <div class="card-title">🏠 Your Address</div>
       <div class="info-row">
-        <span class="info-icon">🏢</span>
+        <span class="info-icon">📍</span>
         <div>
           <div class="info-label">Property Address</div>
-          <div class="info-val">Room 965, Air Residences<br>Malugay Street, Brgy. San Antonio<br>Makati, Philippines</div>
+          <div class="info-val">Room 965<br>Air Residences, Malugay Street, Brgy. San Antonio, Makati, Philippines</div>
         </div>
       </div>
-      <a href="https://maps.app.goo.gl/ppBcCAhrwm9eyZ5T6" class="cta-btn cta-primary" style="margin-top:16px">
-        Open in Maps
-      </a>
+      <a href="https://maps.app.goo.gl/ppBcCAhrwm9eyZ5T6" class="cta-btn cta-primary" style="margin-top:16px">🗺️ Open in Maps</a>
     </div>
 
-    <div class="card accent-warning">
-      <div class="card-title">
-        <span class="card-title-icon">🏢</span>
-        Gentle Reminder
-      </div>
-      <p style="font-size:14px; color:#6e6e73; line-height:1.75;">
-        This is <strong style="color:#1d1d1f;">NOT A HOTEL</strong> establishment. You are staying in a <strong style="color:#1d1d1f;">shared residential building</strong> with full-time residents who live here permanently.<br><br>
-        Kindly avoid storing or stacking garbage inside the unit, as this may attract pests and insects. Please dispose of trash regularly in the <strong style="color:#1d1d1f;">garbage room near the elevators</strong>.<br><br>
+    <div class="card card-notice">
+      <div class="card-title">🏢 Gentle Reminder</div>
+      <p class="body-text">
+        This is <strong>NOT A HOTEL</strong> establishment. You are staying in a <strong>shared residential building</strong> with full-time residents who live here permanently.<br><br>
+        Kindly avoid storing or stacking garbage inside the unit, as this may attract pests and insects. Please dispose of trash regularly in the <strong>garbage room near the elevators</strong>.<br><br>
         Thank you for helping maintain a clean and peaceful environment for everyone. 🙏
       </p>
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">🔑</span>
-        Key &amp; Entry
-      </div>
+      <div class="card-title">🔑 Key &amp; Entry</div>
       <div class="info-row">
         <span class="info-icon">📬</span>
         <div>
@@ -991,10 +659,7 @@
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">🚶</span>
-        Step-by-Step Arrival
-      </div>
+      <div class="card-title">🚶 Step-by-Step Arrival</div>
       <div class="step-list">
         <div class="step">
           <div class="step-num"></div>
@@ -1027,8 +692,8 @@
         <div class="step">
           <div class="step-num"></div>
           <div class="step-text">
-            <strong>Enjoy your stay!</strong>
-            <span>Make yourself at home — we hope you have a wonderful time at Room 965. 🎉</span>
+            <strong>Enjoy your stay! 🎉</strong>
+            <span>Make yourself at home — we hope you have a wonderful time at Casa Chico Makati.</span>
           </div>
         </div>
       </div>
@@ -1036,90 +701,81 @@
 
   </div>
 
-  <!-- ── HOME GUIDE ─────────────────────────────────────── -->
+  <!-- ── HOME GUIDE ────────────────────────────────────────────── -->
   <div class="section" id="sec-home">
 
-    <div class="card accent-warning">
-      <div class="card-title">
-        <span class="card-title-icon">🏢</span>
-        Gentle Reminder
-      </div>
-      <p style="font-size:14px; color:#6e6e73; line-height:1.75;">
-        This is <strong style="color:#1d1d1f;">NOT A HOTEL</strong> establishment. You are staying in a <strong style="color:#1d1d1f;">shared residential building</strong> with full-time residents who live here permanently.<br><br>
-        Kindly avoid storing or stacking garbage inside the unit, as this may attract pests and insects. Please dispose of trash regularly in the <strong style="color:#1d1d1f;">garbage room near the elevators</strong>.<br><br>
+    <div class="card card-notice">
+      <div class="card-title">🏢 Gentle Reminder</div>
+      <p class="body-text">
+        This is <strong>NOT A HOTEL</strong> establishment. You are staying in a <strong>shared residential building</strong> with full-time residents who live here permanently.<br><br>
+        Kindly avoid storing or stacking garbage inside the unit, as this may attract pests and insects. Please dispose of trash regularly in the <strong>garbage room near the elevators</strong>.<br><br>
         Thank you for helping maintain a clean and peaceful environment for everyone. 🙏
       </p>
     </div>
 
+    <div class="card card-notice">
+      <div class="card-title">🛗 Elevator Notice</div>
+      <p class="body-text">
+        Please be aware that this is a <strong>highly booked condominium on Airbnb</strong>, and the building is home to many full-time residents as well. As a result, <strong>elevators may take a while</strong> to reach your floor — especially during <strong>rush hours</strong> (mornings and evenings).<br><br>
+        We kindly ask that you <strong>plan ahead of time</strong> whenever you need to head out, so you can avoid any inconvenience or delays. Thank you for your patience and understanding! 🙏
+      </p>
+    </div>
+
+    <div class="card card-highlight">
+      <div class="card-title">🌿 A Note on Shared Living</div>
+      <p class="body-text">
+        As with most multi-unit residential buildings, our shared common areas — hallways, stairwells, and corridors — are used by many residents daily. Occasionally, an insect may find its way in, particularly during <strong>warmer months</strong>. This is completely normal for buildings of this nature.<br><br>
+        Please know that we take <strong>cleanliness very seriously</strong>. Your unit is thoroughly cleaned and sanitized before every stay, and we continuously do our best to ensure a fresh and comfortable environment for all our guests.<br><br>
+        If you ever notice anything that concerns you during your stay, please don't hesitate to <strong>reach out to us</strong> — we're always here and happy to help. 🙏
+      </p>
+    </div>
+
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">🏠</span>
-        Room by Room Guide
-      </div>
+      <div class="card-title">🏠 Room by Room Guide</div>
 
       <div class="accordion-item open">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left">
-            <span class="acc-icon">🛋️</span>
-            <span class="acc-label">Living Room</span>
-          </div>
-          <span class="acc-arrow">
-            <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
-          </span>
+          <div class="accordion-trigger-left"><span class="acc-icon">🛋️</span><span class="acc-label">Living Room</span></div>
+          <span class="acc-arrow">▼</span>
         </button>
         <div class="accordion-body">
-          <strong style="color:#1d1d1f;">TV:</strong> Use the black remote. Netflix is already logged in and ready to use. If you find it has been logged out, just message us and we'll help you get back in.<br><br>
-          <strong style="color:#1d1d1f;">AC:</strong> Use the white remote. Recommended temperature is <strong style="color:#1d1d1f;">20°C</strong>.
+          <strong>TV:</strong> Use the black remote. Netflix is already logged in and ready to use. If you find it has been logged out, just message us and we'll help you get back in.<br><br>
+          <strong>AC:</strong> Use the white remote. Recommended temperature is <strong>20°C</strong>.
         </div>
       </div>
 
       <div class="accordion-item open">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left">
-            <span class="acc-icon">🍳</span>
-            <span class="acc-label">Kitchen</span>
-          </div>
-          <span class="acc-arrow">
-            <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
-          </span>
+          <div class="accordion-trigger-left"><span class="acc-icon">🍳</span><span class="acc-label">Kitchen</span></div>
+          <span class="acc-arrow">▼</span>
         </button>
         <div class="accordion-body">
-          <strong style="color:#1d1d1f;">Cooking tools:</strong> All basic cooking tools are available inside the cabinets — feel free to use them.<br><br>
-          <strong style="color:#1d1d1f;">Important:</strong> Please do not leave dirty plates and utensils in the sink, as this may attract unwanted pests and insects. Do not open cabinets with locks, as we used them for storage of cleaning tools.<br><br>
-          <strong style="color:#1d1d1f;">Trash:</strong> Please dispose of your garbage in the <strong style="color:#1d1d1f;">garbage room near the elevators</strong>.
+          <strong>Cooking tools:</strong> All basic cooking tools are available inside the cabinets — feel free to use them.<br><br>
+          <strong>Important:</strong> Please do not leave dirty plates and utensils in the sink, as this may attract unwanted pests and insects. Do not open cabinets with locks, as we use them for storage of cleaning tools.<br><br>
+          <strong>Trash:</strong> Please dispose of your garbage in the <strong>garbage room near the elevators</strong>.
         </div>
       </div>
 
       <div class="accordion-item open">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left">
-            <span class="acc-icon">🛏️</span>
-            <span class="acc-label">Bedrooms</span>
-          </div>
-          <span class="acc-arrow">
-            <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
-          </span>
+          <div class="accordion-trigger-left"><span class="acc-icon">🛏️</span><span class="acc-label">Bedrooms</span></div>
+          <span class="acc-arrow">▼</span>
         </button>
         <div class="accordion-body">
-          <strong style="color:#1d1d1f;">Bed:</strong> Queen size bed with 4 pillows and duvet<br><br>
-          <strong style="color:#1d1d1f;">Towels:</strong> Fresh towels are provided and placed on top of the bed.
+          <strong>Bed:</strong> Queen size bed with 4 pillows and duvet.<br><br>
+          <strong>Towels:</strong> Fresh towels are provided and placed on top of the bed.
         </div>
       </div>
 
       <div class="accordion-item open">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left">
-            <span class="acc-icon">🚿</span>
-            <span class="acc-label">Bathroom</span>
-          </div>
-          <span class="acc-arrow">
-            <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
-          </span>
+          <div class="accordion-trigger-left"><span class="acc-icon">🚿</span><span class="acc-label">Bathroom</span></div>
+          <span class="acc-arrow">▼</span>
         </button>
         <div class="accordion-body">
-          <strong style="color:#1d1d1f;">Shower:</strong> Hot water comes from the telephone shower head — turn the knob to redirect the water. Adjust the heater through the separate heater box located on top of the shower.<br><br>
-          <strong style="color:#1d1d1f;">Supplies:</strong> Shampoo, conditioner, body wash, and hair dryer are provided.<br><br>
-          <strong style="color:#1d1d1f;">Toilet:</strong> Please don't flush wipes or paper towels or anything — a trash bin is provided for these.
+          <strong>Shower:</strong> Hot water comes from the telephone shower head — turn the knob to redirect the water. Adjust the heater via the separate heater box located on top of the shower.<br><br>
+          <strong>Supplies:</strong> Shampoo, conditioner, body wash, and hair dryer are provided.<br><br>
+          <strong>Toilet:</strong> Please don't flush wipes, paper towels, or anything else — a trash bin is provided for these.
         </div>
       </div>
 
@@ -1127,41 +783,30 @@
 
   </div>
 
-  <!-- ── WI-FI ───────────────────────────────────────────── -->
+  <!-- ── WI-FI ──────────────────────────────────────────────────── -->
   <div class="section" id="sec-wifi">
 
-    <div class="card accent-blue">
-      <div class="card-title">
-        <span class="card-title-icon">📶</span>
-        Wi-Fi Details
-      </div>
-      <div class="info-row">
-        <span class="info-icon">📡</span>
-        <div style="flex:1">
-          <div class="info-label">Network Name (SSID)</div>
-          <div class="wifi-val">
-            WOOFY_F06D_5G
-            <span class="copy-wrap">
-              <button class="copy-btn" onclick="copyText('WOOFY_F06D_5G', this)">Copy</button>
-              <span class="copy-toast">Copied!</span>
-            </span>
+    <div class="card">
+      <div class="card-title">📶 Wi-Fi Details</div>
+      <div class="wifi-block">
+        <div class="wifi-row">
+          <div class="wifi-label">Network Name (SSID)</div>
+          <div class="wifi-val">WOOFY_F06D_5G</div>
+          <div class="copy-wrap">
+            <button class="copy-btn" onclick="copyText('WOOFY_F06D_5G', this)">Copy</button>
+            <span class="copy-toast">Copied!</span>
+          </div>
+        </div>
+        <div class="wifi-row">
+          <div class="wifi-label">Password</div>
+          <div class="wifi-val">78303b7df06d</div>
+          <div class="copy-wrap">
+            <button class="copy-btn" onclick="copyText('78303b7df06d', this)">Copy</button>
+            <span class="copy-toast">Copied!</span>
           </div>
         </div>
       </div>
-      <div class="info-row">
-        <span class="info-icon">🔒</span>
-        <div style="flex:1">
-          <div class="info-label">Password</div>
-          <div class="wifi-val">
-            78303b7df06d
-            <span class="copy-wrap">
-              <button class="copy-btn" onclick="copyText('78303b7df06d', this)">Copy</button>
-              <span class="copy-toast">Copied!</span>
-            </span>
-          </div>
-        </div>
-      </div>
-      <div class="info-row">
+      <div class="info-row" style="padding-top:0">
         <span class="info-icon">⚡</span>
         <div>
           <div class="info-label">Speed</div>
@@ -1171,22 +816,14 @@
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">📺</span>
-        Streaming &amp; Entertainment
-      </div>
+      <div class="card-title">📺 Streaming &amp; Entertainment</div>
       <div class="accordion-item open">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left">
-            <span class="acc-icon">🎬</span>
-            <span class="acc-label">TV Streaming Apps</span>
-          </div>
-          <span class="acc-arrow">
-            <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
-          </span>
+          <div class="accordion-trigger-left"><span class="acc-icon">🎬</span><span class="acc-label">TV Streaming Apps</span></div>
+          <span class="acc-arrow">▼</span>
         </button>
         <div class="accordion-body">
-          <strong style="color:#1d1d1f;">Netflix</strong> is logged in and ready. Please do not log out or change account settings.<br><br>
+          <strong>Netflix</strong> is logged in and ready. Please do not log out or change account settings.<br><br>
           In case it is not logged in, please message us so we can assist you.
         </div>
       </div>
@@ -1194,14 +831,11 @@
 
   </div>
 
-  <!-- ── RULES ──────────────────────────────────────────── -->
+  <!-- ── RULES ──────────────────────────────────────────────────── -->
   <div class="section" id="sec-rules">
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">✅</span>
-        What's Allowed
-      </div>
+      <div class="card-title">✅ What's Allowed</div>
       <div class="rules-grid">
         <div class="rule-tag allowed"><span class="rt-icon">🥂</span> Drinks</div>
         <div class="rule-tag allowed"><span class="rt-icon">🍛</span> Outside food</div>
@@ -1213,25 +847,19 @@
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">🚫</span>
-        House Rules
-      </div>
+      <div class="card-title">🚫 House Rules</div>
       <div class="rules-grid">
         <div class="rule-tag disallowed"><span class="rt-icon">🚬</span> No smoking (₱5,000 fine)</div>
         <div class="rule-tag disallowed"><span class="rt-icon">🎉</span> No parties/events</div>
         <div class="rule-tag disallowed"><span class="rt-icon">🔊</span> Quiet after 10 PM</div>
-        <div class="rule-tag disallowed"><span class="rt-icon">👥</span> Listed guests only</div>
+        <div class="rule-tag disallowed"><span class="rt-icon">👥</span> Guests listed only</div>
         <div class="rule-tag disallowed"><span class="rt-icon">🎥</span> No cameras indoors</div>
         <div class="rule-tag disallowed"><span class="rt-icon">🐕</span> No pets allowed</div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">🌙</span>
-        Quiet Hours &amp; Neighbors
-      </div>
+      <div class="card-title">🌙 Quiet Hours &amp; Neighbors</div>
       <div class="info-row">
         <span class="info-icon">🔇</span>
         <div>
@@ -1243,16 +871,13 @@
         <span class="info-icon">🏢</span>
         <div>
           <div class="info-label">Building Notes</div>
-          <div class="info-val">Please note that this is a residential building, not a hotel establishment. We ask that you respect our neighbors by keeping voices low in hallways and common areas.</div>
+          <div class="info-val">Please note that this is a residential building, <strong>NOT A HOTEL</strong> establishment. We ask that you respect our neighbors by keeping voices low in hallways and common areas.</div>
         </div>
       </div>
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">🔥</span>
-        Emergency Info
-      </div>
+      <div class="card-title">🔥 Emergency Info</div>
       <div class="info-row">
         <span class="info-icon">🧯</span>
         <div>
@@ -1271,45 +896,30 @@
 
   </div>
 
-  <!-- ── NEIGHBORHOOD ───────────────────────────────────── -->
+  <!-- ── NEIGHBORHOOD ───────────────────────────────────────────── -->
   <div class="section" id="sec-neighborhood">
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">📍</span>
-        Explore the Area
-      </div>
+      <div class="card-title">📍 Explore the Area</div>
 
-      <a href="https://maps.app.goo.gl/zodkk2JAYzsny3j49" class="map-placeholder">
-        <span>🗺️</span>
-        <span>Open Full Map</span>
+      <a href="https://maps.app.goo.gl/zodkk2JAYzsny3j49" class="map-link">
+        🗺️ Open Full Neighborhood Map
       </a>
 
       <div class="accordion-item open">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left">
-            <span class="acc-icon">☕</span>
-            <span class="acc-label">Coffee &amp; Breakfast</span>
-          </div>
-          <span class="acc-arrow">
-            <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
-          </span>
+          <div class="accordion-trigger-left"><span class="acc-icon">☕</span><span class="acc-label">Coffee &amp; Breakfast</span></div>
+          <span class="acc-arrow">▼</span>
         </button>
         <div class="accordion-body">
           <div class="place-item">
             <span class="place-icon">☕</span>
-            <div class="place-info">
-              <div class="place-name">Zus Coffee</div>
-              <div class="place-meta">We personally recommend this</div>
-            </div>
+            <div class="place-info"><div class="place-name">Zus Coffee</div><div class="place-meta">We personally recommend this</div></div>
             <span class="place-dist">220 m</span>
           </div>
           <div class="place-item">
             <span class="place-icon">🥐</span>
-            <div class="place-info">
-              <div class="place-name">Breadtalk</div>
-              <div class="place-meta">Our go-to bakery shop</div>
-            </div>
+            <div class="place-info"><div class="place-name">Breadtalk</div><div class="place-meta">Our go-to bakery shop</div></div>
             <span class="place-dist">220 m</span>
           </div>
         </div>
@@ -1317,37 +927,23 @@
 
       <div class="accordion-item open">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left">
-            <span class="acc-icon">🍽️</span>
-            <span class="acc-label">Restaurants</span>
-          </div>
-          <span class="acc-arrow">
-            <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
-          </span>
+          <div class="accordion-trigger-left"><span class="acc-icon">🍽️</span><span class="acc-label">Restaurants</span></div>
+          <span class="acc-arrow">▼</span>
         </button>
         <div class="accordion-body">
           <div class="place-item">
             <span class="place-icon">🥘</span>
-            <div class="place-info">
-              <div class="place-name">Recipe's by Cafe Metro</div>
-              <div class="place-meta">Filipino cuisines — our go-to restaurant</div>
-            </div>
+            <div class="place-info"><div class="place-name">Recipe's by Cafe Metro</div><div class="place-meta">Filipino cuisines — our go-to restaurant</div></div>
             <span class="place-dist">220 m</span>
           </div>
           <div class="place-item">
             <span class="place-icon">🍜</span>
-            <div class="place-info">
-              <div class="place-name">Nanyang</div>
-              <div class="place-meta">Singaporean inspired restaurant and cafe</div>
-            </div>
+            <div class="place-info"><div class="place-name">Nanyang</div><div class="place-meta">Singaporean inspired restaurant and cafe</div></div>
             <span class="place-dist">220 m</span>
           </div>
           <div class="place-item">
             <span class="place-icon">🍙</span>
-            <div class="place-info">
-              <div class="place-name">Yuki</div>
-              <div class="place-meta">Japanese food</div>
-            </div>
+            <div class="place-info"><div class="place-name">Yuki</div><div class="place-meta">Japanese food</div></div>
             <span class="place-dist">220 m</span>
           </div>
         </div>
@@ -1355,68 +951,42 @@
 
       <div class="accordion-item open">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left">
-            <span class="acc-icon">🛒</span>
-            <span class="acc-label">Groceries &amp; Essentials</span>
-          </div>
-          <span class="acc-arrow">
-            <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
-          </span>
+          <div class="accordion-trigger-left"><span class="acc-icon">🛒</span><span class="acc-label">Groceries &amp; Essentials (right below the building)</span></div>
+          <span class="acc-arrow">▼</span>
         </button>
         <div class="accordion-body">
-          <p style="margin-bottom:10px; color:#6e6e73; font-size:13px;">Right below the building</p>
           <div class="place-item">
             <span class="place-icon">🛒</span>
-            <div class="place-info">
-              <div class="place-name">Savemore</div>
-              <div class="place-meta">Open 10 AM – 9 PM</div>
-            </div>
-            <span class="place-dist">Ground floor</span>
+            <div class="place-info"><div class="place-name">Savemore</div><div class="place-meta">Open 10 AM – 9 PM</div></div>
+            <span class="place-dist">0 m</span>
           </div>
           <div class="place-item">
             <span class="place-icon">💊</span>
-            <div class="place-info">
-              <div class="place-name">Watsons Pharmacy</div>
-              <div class="place-meta">24 hours</div>
-            </div>
-            <span class="place-dist">Ground floor</span>
+            <div class="place-info"><div class="place-name">Watsons Pharmacy</div><div class="place-meta">24 hours</div></div>
+            <span class="place-dist">0 m</span>
           </div>
         </div>
       </div>
 
       <div class="accordion-item open">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left">
-            <span class="acc-icon">🏤</span>
-            <span class="acc-label">Malls &amp; Activities</span>
-          </div>
-          <span class="acc-arrow">
-            <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
-          </span>
+          <div class="accordion-trigger-left"><span class="acc-icon">🏤</span><span class="acc-label">Malls &amp; Activities</span></div>
+          <span class="acc-arrow">▼</span>
         </button>
         <div class="accordion-body">
           <div class="place-item">
             <span class="place-icon">🏤</span>
-            <div class="place-info">
-              <div class="place-name">SM Mall of Asia</div>
-              <div class="place-meta">Biggest mall in the Philippines</div>
-            </div>
+            <div class="place-info"><div class="place-name">SM Mall of Asia</div><div class="place-meta">Biggest mall in the Philippines</div></div>
             <span class="place-dist">6.7 km</span>
           </div>
           <div class="place-item">
             <span class="place-icon">🚲</span>
-            <div class="place-info">
-              <div class="place-name">Salcedo Park</div>
-              <div class="place-meta">Worth a walk around</div>
-            </div>
+            <div class="place-info"><div class="place-name">Salcedo Park</div><div class="place-meta">Worth a walk around</div></div>
             <span class="place-dist">2.3 km</span>
           </div>
           <div class="place-item">
             <span class="place-icon">🎨</span>
-            <div class="place-info">
-              <div class="place-name">Ayala Museum</div>
-              <div class="place-meta">Worth a look</div>
-            </div>
+            <div class="place-info"><div class="place-name">Ayala Museum</div><div class="place-meta">Worth a look</div></div>
             <span class="place-dist">1.6 km</span>
           </div>
         </div>
@@ -1424,17 +994,12 @@
 
       <div class="accordion-item open">
         <button class="accordion-trigger" onclick="toggleAccordion(this)">
-          <div class="accordion-trigger-left">
-            <span class="acc-icon">🚗</span>
-            <span class="acc-label">Getting Around</span>
-          </div>
-          <span class="acc-arrow">
-            <svg viewBox="0 0 10 6"><polyline points="1,1 5,5 9,1"/></svg>
-          </span>
+          <div class="accordion-trigger-left"><span class="acc-icon">🚗</span><span class="acc-label">Getting Around</span></div>
+          <span class="acc-arrow">▼</span>
         </button>
         <div class="accordion-body">
-          <strong style="color:#1d1d1f;">Grab / InDrive</strong> — Best rates. For fixed rates, we highly recommend riding through this app compared to traditional taxis.<br><br>
-          <strong style="color:#1d1d1f;">Parking tip:</strong> Mall pay parking is open 24/7 but it is first-come, first-served. You may also check pay parking at Assembly Grounds — the nearest pay parking to Air Residences.
+          <strong>Grab / InDrive:</strong> Best rates. For fixed rates, we highly recommend using these apps compared to traditional taxis.<br><br>
+          <strong>Parking tip:</strong> Mall pay parking is open 24/7 but is first-come-first-serve. You may also check pay parking at Assembly Grounds — the nearest pay parking to Air Residences.
         </div>
       </div>
 
@@ -1442,22 +1007,19 @@
 
   </div>
 
-  <!-- ── CONTACT ────────────────────────────────────────── -->
+  <!-- ── CONTACT ─────────────────────────────────────────────────── -->
   <div class="section" id="sec-contact">
 
-    <a href="tel:911" class="sos-banner animate-in">
+    <a href="tel:911" class="sos-banner">
       <span class="sos-icon">🚨</span>
-      <div class="sos-text">
+      <div>
         <div class="sos-title">Emergency — Call 911</div>
         <div class="sos-sub">Tap to call emergency services</div>
       </div>
     </a>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">👋</span>
-        Your Host Team
-      </div>
+      <div class="card-title">👋 Your Host Team</div>
 
       <div class="contact-card">
         <div class="contact-left">
@@ -1490,13 +1052,11 @@
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">🆘</span>
-        Local Emergency Services
-      </div>
+      <div class="card-title">🆘 Local Emergency Services</div>
+
       <div class="contact-card">
         <div class="contact-left">
-          <div class="contact-avatar" style="background:linear-gradient(135deg,#fff2f0,#ffe0dc)">🏥</div>
+          <div class="contact-avatar" style="background:linear-gradient(135deg,#fee2e2,#fecaca)">🏥</div>
           <div>
             <div class="contact-name">Makati Medical City</div>
             <div class="contact-role">Nearest hospital — 500 meters</div>
@@ -1506,9 +1066,10 @@
           <a href="tel:+63288888910" class="contact-btn btn-call" title="Call">📞</a>
         </div>
       </div>
+
       <div class="contact-card">
         <div class="contact-left">
-          <div class="contact-avatar" style="background:linear-gradient(135deg,#f0f6ff,#dbeafe)">🚓</div>
+          <div class="contact-avatar" style="background:linear-gradient(135deg,#eff6ff,#dbeafe)">🚓</div>
           <div>
             <div class="contact-name">Makati City Central Police Station</div>
             <div class="contact-role">Non-urgent police matters</div>
@@ -1518,34 +1079,27 @@
           <a href="tel:028872484" class="contact-btn btn-call" title="Call">📞</a>
         </div>
       </div>
+
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">💌</span>
-        Leave a Review
-      </div>
-      <p style="font-size:14px;color:#6e6e73;margin-bottom:4px;line-height:1.7;">
-        We hope you enjoy your stay! As a small business owner here in the Philippines, your review really matters to us. It helps boost our small growing business. ⭐
-      </p>
-      <a href="https://airbnb.com/" class="cta-btn cta-primary">Leave a Review on Airbnb</a>
+      <div class="card-title">💌 Leave a Review</div>
+      <p class="body-text" style="margin-bottom:16px">We hope you enjoy your stay! As a small business owner here in the Philippines, your review really matters to us. It helps boost our small growing business. ⭐</p>
+      <a href="https://airbnb.com/" class="cta-btn cta-primary">⭐ Leave a Review on Airbnb</a>
     </div>
 
   </div>
 
-  <!-- ── CHECK-OUT ───────────────────────────────────────── -->
+  <!-- ── CHECK-OUT ────────────────────────────────────────────────── -->
   <div class="section" id="sec-checkout">
 
-    <div class="card accent-blue">
-      <div class="card-title">
-        <span class="card-title-icon">🧳</span>
-        Check-out Time
-      </div>
+    <div class="card">
+      <div class="card-title">🧳 Check-out Time</div>
       <div class="info-row">
         <span class="info-icon">⏰</span>
         <div>
           <div class="info-label">Check-out By</div>
-          <div class="info-val" style="font-size:28px;font-weight:700;color:#0071e3;letter-spacing:-0.03em;">12:00 PM</div>
+          <div class="info-val" style="font-size:28px;font-weight:700;color:var(--blue);letter-spacing:-0.02em">12:00 PM</div>
         </div>
       </div>
       <div class="info-row">
@@ -1558,187 +1112,139 @@
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">✅</span>
-        Departure Checklist
-      </div>
+      <div class="card-title">✅ Departure Checklist</div>
       <div id="checklistItems"></div>
-      <div class="checklist-progress" id="checklistProgress">0 of 10 completed</div>
+      <div class="checklist-progress" id="checklistProgress">
+        <div class="progress-bar-wrap"><div class="progress-bar-fill" id="progressFill" style="width:0%"></div></div>
+        <span id="progressText">0 of 10 completed</span>
+      </div>
     </div>
 
     <div class="card">
-      <div class="card-title">
-        <span class="card-title-icon">💬</span>
-        Before You Leave
-      </div>
-      <p style="font-size:14px;color:#6e6e73;margin-bottom:4px;line-height:1.7;">
-        It was a pleasure hosting you! We hope you had an amazing time in Makati. Safe travels! Book with us again to get a <strong style="color:#0071e3;">10% discount</strong>.
-      </p>
-      <a href="https://airbnb.com/" class="cta-btn cta-primary">Leave a Review on Airbnb</a>
-      <a href="http://m.me/casachicomakati" class="cta-btn cta-secondary" style="margin-top:10px;">Book Again</a>
+      <div class="card-title">💬 Before You Leave</div>
+      <p class="body-text" style="margin-bottom:16px">It was a pleasure hosting you! We hope you had an amazing time in Makati. Safe travels! Book with us again to get <strong>10% discount</strong> 🎉</p>
+      <a href="https://airbnb.com/" class="cta-btn cta-primary">⭐ Leave a Review on Airbnb</a>
+      <a href="http://m.me/casachicomakati" class="cta-btn cta-secondary">✨ Book Again &amp; Get 10% Off</a>
     </div>
 
   </div>
 
 </div><!-- /container -->
 
-<!-- ── BOTTOM NAV ────────────────────────────────────────── -->
+<!-- ── BOTTOM NAV ─────────────────────────────────────────────────── -->
 <nav class="bottom-nav">
-  <button class="bn-item active" data-bn="arrival" onclick="showSection('arrival')" id="bn-arrival">
-    <span class="bn-icon">🔑</span>
-    <span>Arrival</span>
+  <button class="bn-item active" data-tab="arrival" onclick="showSection('arrival')" id="bn-arrival">
+    <span class="bn-icon">🔑</span>Arrival
   </button>
-  <button class="bn-item" data-bn="home" onclick="showSection('home')" id="bn-home">
-    <span class="bn-icon">🏠</span>
-    <span>Home</span>
+  <button class="bn-item" data-tab="home" onclick="showSection('home')" id="bn-home">
+    <span class="bn-icon">🏠</span>Home
   </button>
-  <button class="bn-item" data-bn="wifi" onclick="showSection('wifi')" id="bn-wifi">
-    <span class="bn-icon">📶</span>
-    <span>Wi-Fi</span>
+  <button class="bn-item" data-tab="wifi" onclick="showSection('wifi')" id="bn-wifi">
+    <span class="bn-icon">📶</span>Wi-Fi
   </button>
-  <button class="bn-item" data-bn="neighborhood" onclick="showSection('neighborhood')" id="bn-neighborhood">
-    <span class="bn-icon">📍</span>
-    <span>Area</span>
+  <button class="bn-item" data-tab="neighborhood" onclick="showSection('neighborhood')" id="bn-neighborhood">
+    <span class="bn-icon">📍</span>Area
   </button>
-  <button class="bn-item" data-bn="contact" onclick="showSection('contact')" id="bn-contact">
-    <span class="bn-icon">💬</span>
-    <span>Contact</span>
+  <button class="bn-item" data-tab="contact" onclick="showSection('contact')" id="bn-contact">
+    <span class="bn-icon">💬</span>Contact
   </button>
 </nav>
 
 <script>
-  // ── Section management ─────────────────────────────────
-  const sections = ['arrival','home','wifi','rules','neighborhood','contact','checkout'];
+  // ── Section visibility helper ────────────────────────────────────
+  const allSections = ['arrival','home','wifi','rules','neighborhood','contact','checkout'];
 
-  // Bottom nav mapping
-  const bnMap = {
-    arrival: 'arrival',
-    home: 'home',
-    wifi: 'wifi',
-    rules: 'arrival',
-    neighborhood: 'neighborhood',
-    contact: 'contact',
-    checkout: 'contact'
-  };
-
-  let currentSection = 'arrival';
+  // Map sections to bottom nav IDs (rules/checkout collapse to nearby tabs)
+  const bnMap = { arrival:'arrival', home:'home', wifi:'wifi', rules:'arrival', neighborhood:'neighborhood', contact:'contact', checkout:'contact' };
 
   function showSection(id) {
-    if (id === currentSection) return;
-
-    const currentEl = document.getElementById('sec-' + currentSection);
-    const nextEl = document.getElementById('sec-' + id);
-
-    if (!nextEl) return;
+    const current = document.querySelector('.section.visible');
+    const next = document.getElementById('sec-' + id);
+    if (current === next) return;
 
     // Animate out
-    if (currentEl) {
-      currentEl.style.opacity = '0';
-      currentEl.style.transform = 'translateY(16px)';
+    if (current) {
+      current.style.opacity = '0';
+      current.style.transform = 'translateY(16px)';
+      current.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
       setTimeout(() => {
-        currentEl.classList.remove('visible');
-        currentEl.style.opacity = '';
-        currentEl.style.transform = '';
-      }, 250);
+        current.classList.remove('visible');
+        current.style.opacity = '';
+        current.style.transform = '';
+        current.style.transition = '';
+      }, 220);
     }
 
     // Animate in
     setTimeout(() => {
-      nextEl.classList.add('visible');
-      nextEl.style.opacity = '0';
-      nextEl.style.transform = 'translateY(16px)';
-      requestAnimationFrame(() => {
-        requestAnimationFrame(() => {
-          nextEl.style.transition = 'opacity 0.3s ease, transform 0.3s ease';
-          nextEl.style.opacity = '1';
-          nextEl.style.transform = 'translateY(0)';
-          // Trigger scroll animations for cards in this section
-          triggerCardAnimations(nextEl);
-        });
-      });
+      next.classList.add('visible');
+      next.style.opacity = '0';
+      next.style.transform = 'translateY(16px)';
+      next.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        next.style.opacity = '1';
+        next.style.transform = 'translateY(0)';
+      }));
       window.scrollTo({ top: 0, behavior: 'smooth' });
-
-      // Clean up inline styles after transition
+      // Re-trigger scroll animations for newly visible cards
+      setTimeout(triggerInView, 50);
       setTimeout(() => {
-        nextEl.style.transition = '';
-        nextEl.style.opacity = '';
-        nextEl.style.transform = '';
-      }, 350);
+        next.style.transition = '';
+        next.style.opacity = '';
+        next.style.transform = '';
+      }, 400);
     }, 200);
 
-    currentSection = id;
-
-    // Update top nav tabs
+    // Update top nav
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-    const activeTab = document.querySelector(`.nav-tab[data-tab="${id}"]`);
-    if (activeTab) {
-      activeTab.classList.add('active');
-      activeTab.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
+    const topBtn = document.querySelector(`.nav-tab[data-tab="${id}"]`);
+    if (topBtn) {
+      topBtn.classList.add('active');
+      topBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
     // Update bottom nav
     document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
     const bnId = bnMap[id] || id;
-    const bnEl = document.getElementById('bn-' + bnId);
-    if (bnEl) bnEl.classList.add('active');
+    const bnBtn = document.getElementById('bn-' + bnId);
+    if (bnBtn) bnBtn.classList.add('active');
   }
 
-  // ── Accordion ───────────────────────────────────────────
+  // ── Accordion ──────────────────────────────────────────────────
   function toggleAccordion(trigger) {
-    const item = trigger.closest('.accordion-item');
-    item.classList.toggle('open');
+    trigger.closest('.accordion-item').classList.toggle('open');
   }
 
-  // ── Copy to clipboard ───────────────────────────────────
+  // ── Copy to clipboard ───────────────────────────────────────────
   function copyText(text, btn) {
-    if (navigator.clipboard && navigator.clipboard.writeText) {
-      navigator.clipboard.writeText(text).then(() => showCopied(btn));
-    } else {
-      // Fallback
-      const ta = document.createElement('textarea');
-      ta.value = text;
-      ta.style.position = 'fixed';
-      ta.style.opacity = '0';
-      document.body.appendChild(ta);
-      ta.select();
-      document.execCommand('copy');
-      document.body.removeChild(ta);
-      showCopied(btn);
-    }
+    navigator.clipboard.writeText(text).then(() => {
+      const toast = btn.nextElementSibling;
+      toast.classList.add('show');
+      btn.textContent = '✓ Copied';
+      setTimeout(() => {
+        toast.classList.remove('show');
+        btn.textContent = 'Copy';
+      }, 2000);
+    });
   }
 
-  function showCopied(btn) {
-    const toast = btn.nextElementSibling;
-    toast.classList.add('show');
-    const orig = btn.textContent;
-    btn.textContent = 'Copied';
-    btn.style.color = '#34c759';
-    setTimeout(() => {
-      toast.classList.remove('show');
-      btn.textContent = orig;
-      btn.style.color = '';
-    }, 2000);
-  }
-
-  // ── Intersection Observer for scroll animations ─────────
+  // ── Intersection Observer for scroll animations ─────────────────
   const observer = new IntersectionObserver((entries) => {
-    entries.forEach(entry => {
-      if (entry.isIntersecting) {
-        entry.target.classList.add('in-view');
+    entries.forEach(el => {
+      if (el.isIntersecting) {
+        el.target.classList.add('in-view');
+        observer.unobserve(el.target);
       }
     });
   }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
 
-  function triggerCardAnimations(section) {
-    section.querySelectorAll('.card, .animate-in').forEach(el => {
+  function triggerInView() {
+    document.querySelectorAll('.card:not(.in-view), .animate-in:not(.in-view)').forEach(el => {
       observer.observe(el);
     });
   }
 
-  // Observe all cards on page load
-  document.querySelectorAll('.card, .animate-in').forEach(el => observer.observe(el));
-
-  // ── Departure Checklist ─────────────────────────────────
+  // ── Departure Checklist ─────────────────────────────────────────
   const checklistTasks = [
     { id: 'c1',  text: 'Wash used dishes and utensils' },
     { id: 'c2',  text: 'Turn off all appliances (except refrigerator and Wi-Fi router)' },
@@ -1752,48 +1258,50 @@
     { id: 'c10', text: 'Message us with a picture of the key inside the mailbox 📩' },
   ];
 
-  const completed = new Set(JSON.parse(localStorage.getItem('checklistDone965') || '[]'));
+  const STORAGE_KEY = 'checklistDone965';
+  const completed = new Set(JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]'));
 
   function renderChecklist() {
     const container = document.getElementById('checklistItems');
-    if (!container) return;
     container.innerHTML = '';
-
     checklistTasks.forEach(task => {
       const done = completed.has(task.id);
       const item = document.createElement('div');
       item.className = 'checklist-item' + (done ? ' done' : '');
-
       item.innerHTML = `
-        <div class="check-circle">
-          <svg viewBox="0 0 12 10"><polyline points="1.5,5.5 4.5,8.5 10.5,1.5"/></svg>
-        </div>
-        <span class="checklist-label">${task.text}</span>
+        <div class="check-circle">${done ? '✓' : ''}</div>
+        <span class="check-text">${task.text}</span>
       `;
-
       item.onclick = () => {
         if (completed.has(task.id)) completed.delete(task.id);
         else completed.add(task.id);
-        localStorage.setItem('checklistDone965', JSON.stringify([...completed]));
+        localStorage.setItem(STORAGE_KEY, JSON.stringify([...completed]));
         renderChecklist();
       };
-
       container.appendChild(item);
     });
 
     const n = completed.size;
     const total = checklistTasks.length;
-    const prog = document.getElementById('checklistProgress');
-    if (prog) {
-      if (n === total) {
-        prog.innerHTML = '<strong style="color:#0071e3;">All done — have a safe trip! 🎉</strong>';
-      } else {
-        prog.textContent = `${n} of ${total} completed`;
-      }
+    const pct = Math.round((n / total) * 100);
+    document.getElementById('progressFill').style.width = pct + '%';
+    const txt = document.getElementById('progressText');
+    if (n === total) {
+      txt.innerHTML = '<strong style="color:#34c759">🎉 All done — have a safe trip!</strong>';
+    } else {
+      txt.textContent = n + ' of ' + total + ' completed';
     }
   }
 
+  // ── Init ────────────────────────────────────────────────────────
   renderChecklist();
+  triggerInView();
+
+  // Observe cards as sections become visible
+  window.addEventListener('DOMContentLoaded', () => {
+    triggerInView();
+  });
 </script>
+
 </body>
 </html>
