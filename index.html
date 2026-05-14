@@ -4,27 +4,58 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Room 965 — Air Residences Makati</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,600&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f5f5f7;
-      --bg-white: #ffffff;
-      --headline: #1d1d1f;
-      --body: #6e6e73;
-      --blue: #0071e3;
-      --blue-hover: #0077ed;
-      --radius: 20px;
-      --shadow: 0 2px 20px rgba(0,0,0,0.07);
-      --shadow-md: 0 4px 32px rgba(0,0,0,0.10);
+      /* Palette */
+      --bg:         #F6F3EE;
+      --bg-card:    #FFFFFF;
+      --bg-cream:   #F0ECE3;
+      --headline:   #1A1714;
+      --body:       #7C7367;
+      --muted:      #B0A99E;
+      --divider:    rgba(26,23,20,0.08);
+
+      /* Accent — champagne gold */
+      --gold:       #9A7B4F;
+      --gold-light: rgba(154,123,79,0.10);
+      --gold-hover: #7D6139;
+      --gold-border: rgba(154,123,79,0.30);
+
+      /* Navy */
+      --navy:       #1A2535;
+      --navy-soft:  rgba(26,37,53,0.07);
+
+      /* Green / Red (functional) */
+      --green:      #2E7D52;
+      --green-bg:   #EDF7F1;
+      --red:        #9B1C1C;
+      --red-bg:     #FEF2F2;
+      --red-border: #FECACA;
+
+      /* Radii & shadow */
+      --radius-xs:  8px;
+      --radius:     16px;
+      --radius-lg:  22px;
+      --shadow-xs:  0 1px 6px rgba(26,23,20,0.05);
+      --shadow:     0 2px 16px rgba(26,23,20,0.07);
+      --shadow-md:  0 6px 32px rgba(26,23,20,0.10);
+
       --ease: cubic-bezier(0.25, 0.46, 0.45, 0.94);
-      --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Helvetica Neue', sans-serif;
+      --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+
+      --serif: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+      --sans:  'Jost', -apple-system, BlinkMacSystemFont, 'Helvetica Neue', sans-serif;
     }
 
     html { scroll-behavior: smooth; }
 
     body {
-      font-family: var(--font);
+      font-family: var(--sans);
       background: var(--bg);
       color: var(--headline);
       min-height: 100vh;
@@ -32,20 +63,20 @@
       -webkit-font-smoothing: antialiased;
     }
 
-    /* ── STICKY TOP NAV ─────────────────────────────────────── */
+    /* ── TOP NAV ──────────────────────────────────────────── */
     .top-nav {
       position: sticky;
       top: 0;
       z-index: 100;
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      background: rgba(255,255,255,0.85);
-      border-bottom: 1px solid rgba(0,0,0,0.06);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      background: rgba(246,243,238,0.90);
+      border-bottom: 1px solid var(--divider);
       padding: 0 16px;
       overflow-x: auto;
       scrollbar-width: none;
       display: flex;
-      gap: 4px;
+      gap: 0;
       white-space: nowrap;
     }
     .top-nav::-webkit-scrollbar { display: none; }
@@ -54,117 +85,183 @@
       display: inline-flex;
       align-items: center;
       gap: 5px;
-      padding: 12px 14px;
-      font-size: 13px;
+      padding: 14px 16px;
+      font-size: 12px;
       font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       color: var(--body);
       background: none;
       border: none;
       cursor: pointer;
       border-bottom: 2px solid transparent;
       transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
-      font-family: var(--font);
+      font-family: var(--sans);
       white-space: nowrap;
     }
     .nav-tab:hover { color: var(--headline); }
     .nav-tab.active {
-      color: var(--blue);
-      border-bottom-color: var(--blue);
+      color: var(--gold);
+      border-bottom-color: var(--gold);
       font-weight: 600;
     }
 
-    /* ── HERO ───────────────────────────────────────────────── */
+    /* ── HERO ─────────────────────────────────────────────── */
     .hero {
-      background: linear-gradient(160deg, #1d1d1f 0%, #2c2c2e 40%, #3a3a3c 100%);
       color: #fff;
-      padding: 56px 24px 64px;
+      padding: 80px 24px 88px;
       text-align: center;
       position: relative;
       overflow: hidden;
+      min-height: 440px;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
     }
-    .hero::before {
-      content: '';
+
+    /* GIF background */
+    .hero-bg {
       position: absolute;
       inset: 0;
-      background: radial-gradient(ellipse 80% 60% at 50% 100%, rgba(0,113,227,0.18) 0%, transparent 70%);
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center top;
+      display: block;
       pointer-events: none;
     }
+
+    /* Layered overlay: dark vignette + gold glow at bottom */
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to bottom,
+          rgba(8,14,24,0.62) 0%,
+          rgba(8,14,24,0.42) 45%,
+          rgba(8,14,24,0.70) 100%
+        ),
+        radial-gradient(ellipse 70% 50% at 50% 100%, rgba(154,123,79,0.28) 0%, transparent 70%);
+      pointer-events: none;
+    }
+
+    /* Gold shimmer line at bottom */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(154,123,79,0.6), transparent);
+      z-index: 3;
+    }
+    /* All hero text content sits above overlay */
+    .hero-eyebrow,
+    .hero h1,
+    .hero-sub,
+    .hero-divider,
+    .hero-pills {
+      position: relative;
+      z-index: 2;
+    }
+
     .hero-eyebrow {
-      font-size: 12px;
-      font-weight: 600;
-      letter-spacing: 0.12em;
+      font-family: var(--sans);
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.22em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.5);
-      margin-bottom: 12px;
+      color: var(--gold);
+      margin-bottom: 18px;
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.7s var(--ease) 0.1s forwards;
+      transform: translateY(16px);
+      animation: fadeUp 0.9s var(--ease-out) 0.2s forwards;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.5);
     }
     .hero h1 {
-      font-size: 48px;
-      font-weight: 700;
-      letter-spacing: -0.02em;
-      line-height: 1.05;
-      color: #fff;
+      font-family: var(--serif);
+      font-size: clamp(58px, 13vw, 92px);
+      font-weight: 600;
+      font-style: italic;
+      letter-spacing: -0.01em;
+      line-height: 1.0;
+      color: #F5F0E8;
       opacity: 0;
       transform: translateY(24px);
-      animation: fadeUp 0.7s var(--ease) 0.25s forwards;
+      animation: fadeUp 0.9s var(--ease-out) 0.35s forwards;
+      text-shadow: 0 2px 24px rgba(0,0,0,0.55);
     }
     .hero-sub {
-      font-size: 17px;
-      color: rgba(255,255,255,0.65);
-      margin-top: 12px;
+      font-family: var(--sans);
+      font-size: 13px;
       font-weight: 400;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.55);
+      margin-top: 18px;
       opacity: 0;
-      transform: translateY(20px);
-      animation: fadeUp 0.7s var(--ease) 0.4s forwards;
+      transform: translateY(16px);
+      animation: fadeUp 0.9s var(--ease-out) 0.5s forwards;
+      text-shadow: 0 1px 8px rgba(0,0,0,0.4);
+    }
+    .hero-divider {
+      width: 40px;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, var(--gold), transparent);
+      margin: 22px auto 0;
+      opacity: 0;
+      animation: fadeUp 0.9s var(--ease-out) 0.6s forwards;
     }
     .hero-pills {
       display: flex;
       justify-content: center;
-      gap: 10px;
-      margin-top: 28px;
+      gap: 8px;
+      margin-top: 22px;
       flex-wrap: wrap;
       opacity: 0;
-      transform: translateY(16px);
-      animation: fadeUp 0.7s var(--ease) 0.55s forwards;
+      transform: translateY(12px);
+      animation: fadeUp 0.9s var(--ease-out) 0.72s forwards;
     }
     .hero-pill {
-      background: rgba(255,255,255,0.10);
-      backdrop-filter: blur(10px);
-      border: 1px solid rgba(255,255,255,0.15);
+      background: rgba(8,14,24,0.45);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      border: 1px solid rgba(154,123,79,0.35);
       border-radius: 100px;
-      padding: 8px 16px;
-      font-size: 13px;
-      color: rgba(255,255,255,0.85);
+      padding: 7px 16px;
+      font-size: 11px;
       font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
+      color: rgba(245,240,232,0.80);
     }
 
     @keyframes fadeUp {
       to { opacity: 1; transform: translateY(0); }
     }
 
-    /* ── CONTAINER ──────────────────────────────────────────── */
+    /* ── CONTAINER ────────────────────────────────────────── */
     .container {
       max-width: 640px;
       margin: 0 auto;
-      padding: 24px 16px 16px;
+      padding: 28px 16px 16px;
     }
 
-    /* ── SECTIONS ───────────────────────────────────────────── */
+    /* ── SECTIONS ─────────────────────────────────────────── */
     .section { display: none; }
     .section.visible { display: block; }
 
-    /* ── CARDS ──────────────────────────────────────────────── */
+    /* ── CARDS ────────────────────────────────────────────── */
     .card {
-      background: var(--bg-white);
-      border-radius: var(--radius);
+      background: var(--bg-card);
+      border-radius: var(--radius-lg);
       box-shadow: var(--shadow);
-      padding: 24px;
-      margin-bottom: 16px;
+      border: 1px solid rgba(26,23,20,0.05);
+      padding: 26px 24px;
+      margin-bottom: 14px;
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease), box-shadow 0.3s var(--ease);
+      transform: translateY(28px);
+      transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out), box-shadow 0.3s var(--ease);
     }
     .card.in-view { opacity: 1; transform: translateY(0); }
     .card:hover { box-shadow: var(--shadow-md); }
@@ -176,297 +273,380 @@
     .card:nth-child(5) { transition-delay: 320ms; }
 
     .card-title {
-      font-size: 17px;
+      font-family: var(--serif);
+      font-size: 20px;
       font-weight: 600;
-      color: var(--headline);
-      margin-bottom: 16px;
+      color: var(--navy);
+      margin-bottom: 18px;
       letter-spacing: -0.01em;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .card-title::before {
+      content: '';
+      display: block;
+      width: 3px;
+      height: 18px;
+      background: var(--gold);
+      border-radius: 2px;
+      flex-shrink: 0;
     }
 
-    /* ── HIGHLIGHT CARD ─────────────────────────────────────── */
+    /* ── HIGHLIGHT / NOTICE CARDS ─────────────────────────── */
     .card-highlight {
-      background: linear-gradient(135deg, #fafafa, #f5f5f7);
-      border-left: 3px solid var(--blue);
+      background: linear-gradient(135deg, #F8F5F0, var(--bg));
+      border-left: 2px solid var(--gold);
     }
-    .card-highlight .card-title { color: var(--blue); }
+    .card-highlight .card-title { color: var(--gold-hover); }
+    .card-highlight .card-title::before { display: none; }
 
-    /* ── AMBER NOTICE CARD ──────────────────────────────────── */
     .card-notice {
-      background: linear-gradient(135deg, #fffbf0, #fff8e7);
-      border-left: 3px solid #f0a500;
+      background: linear-gradient(135deg, #FFFDF5, #FFF8E8);
+      border-left: 2px solid #C9A44A;
     }
-    .card-notice .card-title { color: #b07800; }
+    .card-notice .card-title { color: #7D6020; }
+    .card-notice .card-title::before { display: none; }
 
-    /* ── INFO ROWS ──────────────────────────────────────────── */
+    /* ── INFO ROWS ────────────────────────────────────────── */
     .info-row {
       display: flex;
       align-items: flex-start;
       gap: 14px;
-      padding: 12px 0;
-      border-bottom: 1px solid #f5f5f7;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--divider);
     }
     .info-row:last-child { border-bottom: none; padding-bottom: 0; }
     .info-row:first-of-type { padding-top: 0; }
-    .info-icon { font-size: 20px; flex-shrink: 0; margin-top: 1px; }
-    .info-label { font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.07em; color: var(--body); margin-bottom: 3px; }
-    .info-val { font-size: 15px; font-weight: 500; color: var(--headline); line-height: 1.5; }
+    .info-icon { font-size: 18px; flex-shrink: 0; margin-top: 2px; opacity: 0.75; }
+    .info-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+    .info-val {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--headline);
+      line-height: 1.6;
+    }
+    .info-val strong { font-weight: 600; }
     .info-val small { font-size: 13px; font-weight: 400; color: var(--body); }
 
-    /* ── STEP LIST ──────────────────────────────────────────── */
-    .step-list { display: flex; flex-direction: column; gap: 0; }
+    /* ── STEP LIST ────────────────────────────────────────── */
+    .step-list { display: flex; flex-direction: column; gap: 0; counter-reset: step-counter; }
     .step {
       display: flex;
-      gap: 14px;
-      padding: 14px 0;
-      border-bottom: 1px solid #f5f5f7;
+      gap: 16px;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--divider);
       align-items: flex-start;
     }
     .step:last-child { border-bottom: none; padding-bottom: 0; }
     .step-num {
-      width: 28px; height: 28px;
+      width: 30px; height: 30px;
       border-radius: 50%;
-      background: var(--blue);
-      color: #fff;
-      font-size: 13px;
-      font-weight: 700;
+      background: var(--navy);
+      color: #F5F0E8;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.02em;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       counter-increment: step-counter;
+      box-shadow: 0 2px 8px rgba(26,37,53,0.20);
     }
-    .step-list { counter-reset: step-counter; }
     .step-num::before { content: counter(step-counter); }
-    .step-text { font-size: 14px; color: var(--body); line-height: 1.6; padding-top: 4px; }
-    .step-text strong { color: var(--headline); display: block; margin-bottom: 2px; font-weight: 600; }
+    .step-text { font-size: 14px; color: var(--body); line-height: 1.65; padding-top: 5px; }
+    .step-text strong { color: var(--headline); display: block; margin-bottom: 3px; font-weight: 600; }
     .step-text span { display: block; }
 
-    /* ── RULES GRID ─────────────────────────────────────────── */
+    /* ── RULES GRID ───────────────────────────────────────── */
     .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; }
     .rule-tag {
       display: flex; align-items: center; gap: 8px;
-      padding: 12px 14px;
-      border-radius: 14px;
-      font-size: 13px;
+      padding: 11px 13px;
+      border-radius: var(--radius-xs);
+      font-size: 12px;
       font-weight: 500;
+      letter-spacing: 0.01em;
+      border: 1px solid transparent;
     }
-    .rule-tag.allowed { background: #f0fdf4; color: #166534; }
-    .rule-tag.disallowed { background: #fef2f2; color: #991b1b; }
-    .rt-icon { font-size: 16px; }
+    .rule-tag.allowed {
+      background: var(--green-bg);
+      color: var(--green);
+      border-color: rgba(46,125,82,0.18);
+    }
+    .rule-tag.disallowed {
+      background: var(--red-bg);
+      color: var(--red);
+      border-color: rgba(155,28,28,0.15);
+    }
+    .rt-icon { font-size: 15px; }
 
-    /* ── ACCORDION ──────────────────────────────────────────── */
-    .accordion-item {
-      border-bottom: 1px solid #f5f5f7;
-    }
+    /* ── ACCORDION ────────────────────────────────────────── */
+    .accordion-item { border-bottom: 1px solid var(--divider); }
     .accordion-item:last-child { border-bottom: none; }
     .accordion-trigger {
       width: 100%;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 14px 0;
+      padding: 15px 0;
       background: none;
       border: none;
       cursor: pointer;
-      font-family: var(--font);
+      font-family: var(--sans);
       text-align: left;
+      transition: opacity 0.2s;
     }
+    .accordion-trigger:hover { opacity: 0.75; }
     .accordion-trigger-left { display: flex; align-items: center; gap: 10px; }
-    .acc-icon { font-size: 18px; }
-    .acc-label { font-size: 15px; font-weight: 600; color: var(--headline); }
+    .acc-icon { font-size: 17px; opacity: 0.80; }
+    .acc-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--headline);
+      letter-spacing: 0.01em;
+    }
     .acc-arrow {
-      font-size: 11px;
-      color: var(--body);
+      font-size: 10px;
+      color: var(--gold);
       transition: transform 0.3s var(--ease);
     }
     .accordion-item.open .acc-arrow { transform: rotate(180deg); }
     .accordion-body {
       font-size: 14px;
       color: var(--body);
-      line-height: 1.7;
+      line-height: 1.75;
       padding: 0 0 16px;
       display: none;
     }
+    .accordion-body strong { color: var(--headline); font-weight: 600; }
     .accordion-item.open .accordion-body { display: block; }
 
-    /* ── PLACE ITEMS ────────────────────────────────────────── */
+    /* ── PLACE ITEMS ──────────────────────────────────────── */
     .place-item {
       display: flex;
       align-items: center;
-      gap: 12px;
-      padding: 10px 0;
-      border-bottom: 1px solid #f5f5f7;
+      gap: 13px;
+      padding: 11px 0;
+      border-bottom: 1px solid var(--divider);
     }
     .place-item:last-child { border-bottom: none; }
-    .place-icon { font-size: 22px; flex-shrink: 0; }
+    .place-icon { font-size: 20px; flex-shrink: 0; opacity: 0.85; }
     .place-info { flex: 1; }
-    .place-name { font-size: 14px; font-weight: 600; color: var(--headline); }
-    .place-meta { font-size: 12px; color: var(--body); margin-top: 1px; }
+    .place-name { font-size: 14px; font-weight: 500; color: var(--headline); }
+    .place-meta { font-size: 12px; color: var(--body); margin-top: 2px; }
     .place-dist {
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 600;
-      color: var(--blue);
-      background: #eff6ff;
-      padding: 4px 8px;
-      border-radius: 8px;
+      letter-spacing: 0.04em;
+      color: var(--gold-hover);
+      background: var(--gold-light);
+      border: 1px solid var(--gold-border);
+      padding: 4px 10px;
+      border-radius: 100px;
       white-space: nowrap;
       flex-shrink: 0;
     }
 
-    /* ── MAP PLACEHOLDER ────────────────────────────────────── */
+    /* ── MAP LINK ─────────────────────────────────────────── */
     .map-link {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 10px;
-      background: #eff6ff;
-      border-radius: 14px;
-      padding: 18px;
-      margin-bottom: 16px;
-      color: var(--blue);
-      font-size: 15px;
-      font-weight: 600;
+      background: var(--navy);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 18px;
+      color: #F5F0E8;
+      font-size: 13px;
+      font-weight: 500;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
       text-decoration: none;
-      transition: background 0.25s var(--ease);
+      transition: background 0.25s var(--ease), transform 0.2s var(--ease);
     }
-    .map-link:hover { background: #dbeafe; }
+    .map-link:hover { background: #0D1520; transform: translateY(-1px); }
 
-    /* ── CONTACT CARDS ──────────────────────────────────────── */
+    /* ── CONTACT CARDS ────────────────────────────────────── */
     .contact-card {
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 12px;
-      padding: 14px 0;
-      border-bottom: 1px solid #f5f5f7;
+      padding: 16px 0;
+      border-bottom: 1px solid var(--divider);
     }
     .contact-card:last-child { border-bottom: none; padding-bottom: 0; }
-    .contact-left { display: flex; align-items: center; gap: 12px; }
+    .contact-left { display: flex; align-items: center; gap: 14px; }
     .contact-avatar {
-      width: 44px; height: 44px;
+      width: 46px; height: 46px;
       border-radius: 50%;
-      background: linear-gradient(135deg, #e8f4fd, #dbeafe);
+      background: linear-gradient(135deg, var(--bg-cream), #E8E0D0);
+      border: 1px solid var(--gold-border);
       display: flex; align-items: center; justify-content: center;
       font-size: 22px;
       flex-shrink: 0;
     }
-    .contact-name { font-size: 15px; font-weight: 600; color: var(--headline); }
-    .contact-role { font-size: 12px; color: var(--body); margin-top: 1px; }
+    .contact-name {
+      font-family: var(--serif);
+      font-size: 16px;
+      font-weight: 600;
+      color: var(--headline);
+    }
+    .contact-role { font-size: 11px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--gold); margin-top: 3px; }
     .contact-actions { display: flex; gap: 8px; }
     .contact-btn {
       width: 40px; height: 40px;
       border-radius: 50%;
       display: flex; align-items: center; justify-content: center;
-      font-size: 18px;
+      font-size: 17px;
       text-decoration: none;
-      transition: transform 0.2s var(--ease), opacity 0.2s;
+      border: 1px solid var(--divider);
+      transition: transform 0.2s var(--ease), border-color 0.2s, background 0.2s;
     }
-    .contact-btn:hover { transform: scale(1.1); }
-    .btn-msg { background: #e8f5e9; }
-    .btn-call { background: #eff6ff; }
+    .contact-btn:hover { transform: scale(1.08); border-color: var(--gold-border); }
+    .btn-msg { background: #F0FAF3; }
+    .btn-call { background: var(--gold-light); }
 
-    /* ── SOS BANNER ─────────────────────────────────────────── */
+    /* ── SOS BANNER ───────────────────────────────────────── */
     .sos-banner {
       display: flex;
       align-items: center;
       gap: 14px;
-      background: linear-gradient(135deg, #fff1f0, #fde8e8);
-      border: 1.5px solid #fca5a5;
-      border-radius: var(--radius);
+      background: linear-gradient(135deg, #FFF1F0, #FDE8E8);
+      border: 1px solid var(--red-border);
+      border-radius: var(--radius-lg);
       padding: 18px 20px;
       margin-bottom: 16px;
       text-decoration: none;
       transition: all 0.3s var(--ease);
     }
-    .sos-banner:hover { transform: scale(1.01); box-shadow: 0 4px 20px rgba(220,38,38,0.15); }
-    .sos-icon { font-size: 32px; }
-    .sos-title { font-size: 16px; font-weight: 700; color: #991b1b; }
-    .sos-sub { font-size: 13px; color: #b91c1c; margin-top: 2px; }
+    .sos-banner:hover { transform: scale(1.01); box-shadow: 0 4px 20px rgba(155,28,28,0.12); }
+    .sos-icon { font-size: 30px; }
+    .sos-title { font-family: var(--serif); font-size: 17px; font-weight: 700; color: var(--red); }
+    .sos-sub { font-size: 12px; letter-spacing: 0.04em; color: #B91C1C; margin-top: 3px; }
 
-    /* ── CTA BUTTONS ────────────────────────────────────────── */
+    /* ── CTA BUTTONS ──────────────────────────────────────── */
     .cta-btn {
       display: flex;
       align-items: center;
       justify-content: center;
       gap: 8px;
-      padding: 14px 20px;
-      border-radius: 14px;
-      font-size: 15px;
+      padding: 14px 22px;
+      border-radius: 100px;
+      font-size: 12px;
       font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
       text-decoration: none;
       transition: all 0.3s var(--ease);
       cursor: pointer;
       border: none;
-      font-family: var(--font);
+      font-family: var(--sans);
       margin-bottom: 8px;
     }
     .cta-primary {
-      background: var(--blue);
-      color: #fff;
+      background: var(--navy);
+      color: #F5F0E8;
     }
     .cta-primary:hover {
-      background: var(--blue-hover);
+      background: #0D1520;
       transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(0,113,227,0.3);
+      box-shadow: 0 4px 20px rgba(26,37,53,0.25);
     }
     .cta-secondary {
-      background: #f5f5f7;
-      color: var(--headline);
+      background: transparent;
+      color: var(--navy);
+      border: 1.5px solid rgba(26,37,53,0.25);
     }
     .cta-secondary:hover {
-      background: #e8e8ed;
+      border-color: var(--navy);
       transform: translateY(-1px);
     }
     .cta-green {
-      background: #34c759;
+      background: var(--green);
       color: #fff;
     }
     .cta-green:hover {
-      background: #2db84e;
+      background: #236040;
       transform: translateY(-1px);
-      box-shadow: 0 4px 20px rgba(52,199,89,0.3);
+      box-shadow: 0 4px 20px rgba(46,125,82,0.25);
     }
 
-    /* ── WIFI DISPLAY ───────────────────────────────────────── */
+    /* ── WIFI BLOCK ───────────────────────────────────────── */
     .wifi-block {
-      background: linear-gradient(135deg, #1d1d1f, #2c2c2e);
-      border-radius: 16px;
-      padding: 20px;
+      background: linear-gradient(145deg, #0D1520, #1A2535);
+      border-radius: var(--radius);
+      padding: 22px;
       margin-bottom: 16px;
-      color: #fff;
+      position: relative;
+      overflow: hidden;
     }
-    .wifi-label { font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: rgba(255,255,255,0.45); margin-bottom: 4px; }
-    .wifi-val { font-size: 20px; font-weight: 700; letter-spacing: 0.03em; color: #fff; font-family: 'SF Mono', 'Monaco', monospace; }
-    .wifi-row { margin-bottom: 16px; }
-    .wifi-row:last-of-type { margin-bottom: 0; }
-    .copy-wrap { display: flex; align-items: center; gap: 8px; margin-top: 8px; }
-    .copy-btn {
-      background: rgba(255,255,255,0.15);
-      color: #fff;
-      border: 1px solid rgba(255,255,255,0.2);
-      border-radius: 8px;
-      padding: 6px 14px;
-      font-size: 13px;
+    .wifi-block::before {
+      content: '';
+      position: absolute;
+      bottom: 0; right: 0;
+      width: 120px; height: 120px;
+      background: radial-gradient(circle, rgba(154,123,79,0.18) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .wifi-label {
+      font-size: 10px;
       font-weight: 600;
-      cursor: pointer;
-      font-family: var(--font);
-      transition: background 0.2s;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 5px;
     }
-    .copy-btn:hover { background: rgba(255,255,255,0.25); }
+    .wifi-val {
+      font-size: 22px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      color: #F5F0E8;
+      font-family: 'SF Mono', 'Monaco', 'Consolas', monospace;
+    }
+    .wifi-row { margin-bottom: 18px; }
+    .wifi-row:last-of-type { margin-bottom: 0; }
+    .copy-wrap { display: flex; align-items: center; gap: 8px; margin-top: 10px; }
+    .copy-btn {
+      background: rgba(245,240,232,0.12);
+      color: #F5F0E8;
+      border: 1px solid rgba(154,123,79,0.35);
+      border-radius: 100px;
+      padding: 6px 14px;
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      text-transform: uppercase;
+      cursor: pointer;
+      font-family: var(--sans);
+      transition: background 0.2s, border-color 0.2s;
+    }
+    .copy-btn:hover { background: rgba(154,123,79,0.25); border-color: var(--gold); }
     .copy-toast {
-      font-size: 12px;
-      color: #34c759;
+      font-size: 11px;
+      color: #6FCF97;
       opacity: 0;
       font-weight: 600;
+      letter-spacing: 0.04em;
       transition: opacity 0.2s;
     }
     .copy-toast.show { opacity: 1; }
 
-    /* ── CHECKLIST ──────────────────────────────────────────── */
+    /* ── CHECKLIST ────────────────────────────────────────── */
     .checklist-item {
       display: flex;
       align-items: center;
       gap: 14px;
-      padding: 13px 0;
-      border-bottom: 1px solid #f5f5f7;
+      padding: 14px 0;
+      border-bottom: 1px solid var(--divider);
       cursor: pointer;
       transition: opacity 0.2s;
     }
@@ -474,70 +654,71 @@
     .check-circle {
       width: 24px; height: 24px;
       border-radius: 50%;
-      border: 2px solid #d1d1d6;
+      border: 1.5px solid var(--muted);
       background: transparent;
       display: flex; align-items: center; justify-content: center;
       flex-shrink: 0;
       transition: all 0.25s var(--ease);
-      font-size: 12px;
+      font-size: 11px;
       font-weight: 700;
       color: transparent;
     }
     .checklist-item.done .check-circle {
-      background: #34c759;
-      border-color: #34c759;
+      background: var(--gold);
+      border-color: var(--gold);
       color: #fff;
     }
-    .checklist-item.done { opacity: 0.55; }
+    .checklist-item.done { opacity: 0.50; }
     .checklist-item.done .check-text { text-decoration: line-through; color: var(--body); }
     .check-text { font-size: 14px; color: var(--headline); line-height: 1.5; }
     .checklist-progress {
       text-align: center;
-      font-size: 13px;
+      font-size: 12px;
+      letter-spacing: 0.04em;
       color: var(--body);
-      margin-top: 14px;
-      padding-top: 14px;
-      border-top: 1px solid #f5f5f7;
+      margin-top: 16px;
+      padding-top: 16px;
+      border-top: 1px solid var(--divider);
     }
     .progress-bar-wrap {
-      background: #f5f5f7;
+      background: var(--divider);
       border-radius: 100px;
-      height: 4px;
-      margin: 8px 0 6px;
+      height: 2px;
+      margin: 10px 0 8px;
       overflow: hidden;
     }
     .progress-bar-fill {
       height: 100%;
-      background: #34c759;
+      background: linear-gradient(90deg, var(--gold), #C9A44A);
       border-radius: 100px;
       transition: width 0.4s var(--ease);
     }
 
-    /* ── BODY TEXT ──────────────────────────────────────────── */
+    /* ── BODY TEXT ────────────────────────────────────────── */
     .body-text {
       font-size: 14px;
       color: var(--body);
-      line-height: 1.75;
+      line-height: 1.8;
     }
-    .body-text strong { color: var(--headline); }
+    .body-text strong { color: var(--headline); font-weight: 600; }
 
-    /* ── ANIMATE-IN ─────────────────────────────────────────── */
+    /* ── ANIMATE-IN ───────────────────────────────────────── */
     .animate-in {
       opacity: 0;
-      transform: translateY(30px);
-      transition: opacity 0.6s var(--ease), transform 0.6s var(--ease);
+      transform: translateY(28px);
+      transition: opacity 0.65s var(--ease-out), transform 0.65s var(--ease-out);
     }
     .animate-in.in-view { opacity: 1; transform: translateY(0); }
 
-    /* ── BOTTOM NAV ─────────────────────────────────────────── */
+    /* ── BOTTOM NAV ───────────────────────────────────────── */
     .bottom-nav {
       position: fixed;
       bottom: 0; left: 0; right: 0;
       z-index: 100;
-      backdrop-filter: blur(20px) saturate(180%);
-      -webkit-backdrop-filter: blur(20px) saturate(180%);
-      background: rgba(255,255,255,0.88);
-      border-top: 1px solid rgba(0,0,0,0.06);
+      backdrop-filter: blur(24px) saturate(180%);
+      -webkit-backdrop-filter: blur(24px) saturate(180%);
+      background: rgba(246,243,238,0.92);
+      border-top: 1px solid var(--divider);
       display: flex;
       justify-content: space-around;
       align-items: stretch;
@@ -549,32 +730,27 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 3px;
+      gap: 4px;
       padding: 10px 4px;
       background: none;
       border: none;
       cursor: pointer;
-      font-size: 10px;
+      font-size: 9px;
       font-weight: 500;
+      letter-spacing: 0.07em;
+      text-transform: uppercase;
       color: var(--body);
       transition: color 0.2s var(--ease);
-      font-family: var(--font);
+      font-family: var(--sans);
     }
-    .bn-icon { font-size: 20px; }
-    .bn-item.active { color: var(--blue); font-weight: 600; }
+    .bn-icon { font-size: 19px; }
+    .bn-item.active { color: var(--gold); font-weight: 600; }
     .bn-item:hover { color: var(--headline); }
 
-    /* ── SECTION TRANSITIONS ────────────────────────────────── */
-    .section.visible {
-      display: block;
-      transition: opacity 0.25s var(--ease), transform 0.25s var(--ease);
-    }
-
-    /* ── RESPONSIVE ─────────────────────────────────────────── */
+    /* ── RESPONSIVE ───────────────────────────────────────── */
     @media (min-width: 480px) {
-      .hero { padding: 72px 32px 80px; }
-      .hero h1 { font-size: 60px; }
-      .container { padding: 28px 20px 20px; }
+      .hero { padding: 100px 32px 108px; min-height: 500px; }
+      .container { padding: 32px 20px 20px; }
     }
     @media (min-width: 640px) {
       .rules-grid { grid-template-columns: repeat(3, 1fr); }
@@ -583,11 +759,14 @@
 </head>
 <body>
 
-<!-- ── HERO ─────────────────────────────────────────────────── -->
+<!-- ── HERO ──────────────────────────────────────────────── -->
 <div class="hero">
+  <img src="building.gif" class="hero-bg" alt="Air Residences Makati" fetchpriority="high">
+  <div class="hero-overlay"></div>
   <div class="hero-eyebrow">Air Residences · Makati City</div>
   <h1>Room 965</h1>
   <p class="hero-sub">Everything you need for a perfect stay</p>
+  <div class="hero-divider"></div>
   <div class="hero-pills">
     <div class="hero-pill">🔑 Check-in 3:00 PM</div>
     <div class="hero-pill">🧳 Check-out 12:00 PM</div>
@@ -595,7 +774,7 @@
   </div>
 </div>
 
-<!-- ── TOP NAV ────────────────────────────────────────────────── -->
+<!-- ── TOP NAV ────────────────────────────────────────────── -->
 <nav class="top-nav" id="topNav">
   <button class="nav-tab active" data-tab="arrival" onclick="showSection('arrival')">🔑 Arrival</button>
   <button class="nav-tab" data-tab="home" onclick="showSection('home')">🏠 Home Guide</button>
@@ -606,10 +785,10 @@
   <button class="nav-tab" data-tab="checkout" onclick="showSection('checkout')">🧳 Check-out</button>
 </nav>
 
-<!-- ── MAIN ──────────────────────────────────────────────────── -->
+<!-- ── MAIN ──────────────────────────────────────────────── -->
 <div class="container">
 
-  <!-- ── ARRIVAL ─────────────────────────────────────────────── -->
+  <!-- ── ARRIVAL ──────────────────────────────────────────── -->
   <div class="section visible" id="sec-arrival">
 
     <div class="card">
@@ -621,7 +800,7 @@
           <div class="info-val">Room 965<br>Air Residences, Malugay Street, Brgy. San Antonio, Makati, Philippines</div>
         </div>
       </div>
-      <a href="https://maps.app.goo.gl/ppBcCAhrwm9eyZ5T6" class="cta-btn cta-primary" style="margin-top:16px">🗺️ Open in Maps</a>
+      <a href="https://maps.app.goo.gl/ppBcCAhrwm9eyZ5T6" class="cta-btn cta-primary" style="margin-top:18px">🗺️ Open in Maps</a>
     </div>
 
     <div class="card card-notice">
@@ -701,7 +880,7 @@
 
   </div>
 
-  <!-- ── HOME GUIDE ────────────────────────────────────────────── -->
+  <!-- ── HOME GUIDE ────────────────────────────────────────── -->
   <div class="section" id="sec-home">
 
     <div class="card card-notice">
@@ -779,11 +958,39 @@
         </div>
       </div>
 
+      <div class="accordion-item open">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-trigger-left"><span class="acc-icon">🏊</span><span class="acc-label">Swimming Pool (8th Floor)</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          <strong>Location:</strong> The swimming pool is located on the <strong>8th floor</strong> of the building.<br><br>
+          <strong>Access Fee:</strong> Please note that there is a pool access fee:<br>
+          &bull; <strong>Regular Days:</strong> ₱150 per person<br>
+          &bull; <strong>Holidays:</strong> ₱300 per person<br><br>
+          Please message us at least a day before you plan to use the pool so we can arrange your pass in advance.
+        </div>
+      </div>
+
+      <div class="accordion-item open">
+        <button class="accordion-trigger" onclick="toggleAccordion(this)">
+          <div class="accordion-trigger-left"><span class="acc-icon">🧘</span><span class="acc-label">Other Amenities (7th &amp; 8th Floor)</span></div>
+          <span class="acc-arrow">▼</span>
+        </button>
+        <div class="accordion-body">
+          The following amenities are available for your use and are located on the <strong>7th and 8th floors</strong> of the building:<br><br>
+          &bull; <strong>Yoga Area</strong> — perfect for morning stretches and relaxation sessions<br>
+          &bull; <strong>Study Area</strong> — a quiet space for work or focused study<br>
+          &bull; <strong>Playground</strong> — available for younger guests and families<br><br>
+          Please be considerate of other residents when using shared amenity spaces.
+        </div>
+      </div>
+
     </div>
 
   </div>
 
-  <!-- ── WI-FI ──────────────────────────────────────────────────── -->
+  <!-- ── WI-FI ──────────────────────────────────────────────── -->
   <div class="section" id="sec-wifi">
 
     <div class="card">
@@ -831,7 +1038,7 @@
 
   </div>
 
-  <!-- ── RULES ──────────────────────────────────────────────────── -->
+  <!-- ── RULES ──────────────────────────────────────────────── -->
   <div class="section" id="sec-rules">
 
     <div class="card">
@@ -896,7 +1103,7 @@
 
   </div>
 
-  <!-- ── NEIGHBORHOOD ───────────────────────────────────────────── -->
+  <!-- ── NEIGHBORHOOD ──────────────────────────────────────── -->
   <div class="section" id="sec-neighborhood">
 
     <div class="card">
@@ -1007,7 +1214,7 @@
 
   </div>
 
-  <!-- ── CONTACT ─────────────────────────────────────────────────── -->
+  <!-- ── CONTACT ────────────────────────────────────────────── -->
   <div class="section" id="sec-contact">
 
     <a href="tel:911" class="sos-banner">
@@ -1069,7 +1276,7 @@
 
       <div class="contact-card">
         <div class="contact-left">
-          <div class="contact-avatar" style="background:linear-gradient(135deg,#eff6ff,#dbeafe)">🚓</div>
+          <div class="contact-avatar" style="background:linear-gradient(135deg,#f0f4ff,#dbeafe)">🚓</div>
           <div>
             <div class="contact-name">Makati City Central Police Station</div>
             <div class="contact-role">Non-urgent police matters</div>
@@ -1084,13 +1291,13 @@
 
     <div class="card">
       <div class="card-title">💌 Leave a Review</div>
-      <p class="body-text" style="margin-bottom:16px">We hope you enjoy your stay! As a small business owner here in the Philippines, your review really matters to us. It helps boost our small growing business. ⭐</p>
+      <p class="body-text" style="margin-bottom:18px">We hope you enjoy your stay! As a small business owner here in the Philippines, your review really matters to us. It helps boost our small growing business. ⭐</p>
       <a href="https://airbnb.com/" class="cta-btn cta-primary">⭐ Leave a Review on Airbnb</a>
     </div>
 
   </div>
 
-  <!-- ── CHECK-OUT ────────────────────────────────────────────────── -->
+  <!-- ── CHECK-OUT ──────────────────────────────────────────── -->
   <div class="section" id="sec-checkout">
 
     <div class="card">
@@ -1099,7 +1306,7 @@
         <span class="info-icon">⏰</span>
         <div>
           <div class="info-label">Check-out By</div>
-          <div class="info-val" style="font-size:28px;font-weight:700;color:var(--blue);letter-spacing:-0.02em">12:00 PM</div>
+          <div class="info-val" style="font-family:var(--serif);font-size:36px;font-weight:600;font-style:italic;color:var(--navy);letter-spacing:-0.01em;line-height:1.1">12:00 PM</div>
         </div>
       </div>
       <div class="info-row">
@@ -1122,7 +1329,7 @@
 
     <div class="card">
       <div class="card-title">💬 Before You Leave</div>
-      <p class="body-text" style="margin-bottom:16px">It was a pleasure hosting you! We hope you had an amazing time in Makati. Safe travels! Book with us again to get <strong>10% discount</strong> 🎉</p>
+      <p class="body-text" style="margin-bottom:18px">It was a pleasure hosting you! We hope you had an amazing time in Makati. Safe travels! Book with us again to get <strong>10% discount</strong> 🎉</p>
       <a href="https://airbnb.com/" class="cta-btn cta-primary">⭐ Leave a Review on Airbnb</a>
       <a href="http://m.me/casachicomakati" class="cta-btn cta-secondary">✨ Book Again &amp; Get 10% Off</a>
     </div>
@@ -1131,7 +1338,7 @@
 
 </div><!-- /container -->
 
-<!-- ── BOTTOM NAV ─────────────────────────────────────────────────── -->
+<!-- ── BOTTOM NAV ──────────────────────────────────────────── -->
 <nav class="bottom-nav">
   <button class="bn-item active" data-tab="arrival" onclick="showSection('arrival')" id="bn-arrival">
     <span class="bn-icon">🔑</span>Arrival
@@ -1151,10 +1358,7 @@
 </nav>
 
 <script>
-  // ── Section visibility helper ────────────────────────────────────
-  const allSections = ['arrival','home','wifi','rules','neighborhood','contact','checkout'];
-
-  // Map sections to bottom nav IDs (rules/checkout collapse to nearby tabs)
+  // ── Section visibility helper ────────────────────────────
   const bnMap = { arrival:'arrival', home:'home', wifi:'wifi', rules:'arrival', neighborhood:'neighborhood', contact:'contact', checkout:'contact' };
 
   function showSection(id) {
@@ -1162,10 +1366,9 @@
     const next = document.getElementById('sec-' + id);
     if (current === next) return;
 
-    // Animate out
     if (current) {
       current.style.opacity = '0';
-      current.style.transform = 'translateY(16px)';
+      current.style.transform = 'translateY(14px)';
       current.style.transition = 'opacity 0.22s ease, transform 0.22s ease';
       setTimeout(() => {
         current.classList.remove('visible');
@@ -1175,18 +1378,16 @@
       }, 220);
     }
 
-    // Animate in
     setTimeout(() => {
       next.classList.add('visible');
       next.style.opacity = '0';
-      next.style.transform = 'translateY(16px)';
+      next.style.transform = 'translateY(14px)';
       next.style.transition = 'opacity 0.28s ease, transform 0.28s ease';
       requestAnimationFrame(() => requestAnimationFrame(() => {
         next.style.opacity = '1';
         next.style.transform = 'translateY(0)';
       }));
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      // Re-trigger scroll animations for newly visible cards
       setTimeout(triggerInView, 50);
       setTimeout(() => {
         next.style.transition = '';
@@ -1195,7 +1396,6 @@
       }, 400);
     }, 200);
 
-    // Update top nav
     document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
     const topBtn = document.querySelector(`.nav-tab[data-tab="${id}"]`);
     if (topBtn) {
@@ -1203,19 +1403,18 @@
       topBtn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
     }
 
-    // Update bottom nav
     document.querySelectorAll('.bn-item').forEach(b => b.classList.remove('active'));
     const bnId = bnMap[id] || id;
     const bnBtn = document.getElementById('bn-' + bnId);
     if (bnBtn) bnBtn.classList.add('active');
   }
 
-  // ── Accordion ──────────────────────────────────────────────────
+  // ── Accordion ───────────────────────────────────────────
   function toggleAccordion(trigger) {
     trigger.closest('.accordion-item').classList.toggle('open');
   }
 
-  // ── Copy to clipboard ───────────────────────────────────────────
+  // ── Copy to clipboard ────────────────────────────────────
   function copyText(text, btn) {
     navigator.clipboard.writeText(text).then(() => {
       const toast = btn.nextElementSibling;
@@ -1228,7 +1427,7 @@
     });
   }
 
-  // ── Intersection Observer for scroll animations ─────────────────
+  // ── Intersection Observer ────────────────────────────────
   const observer = new IntersectionObserver((entries) => {
     entries.forEach(el => {
       if (el.isIntersecting) {
@@ -1244,7 +1443,7 @@
     });
   }
 
-  // ── Departure Checklist ─────────────────────────────────────────
+  // ── Departure Checklist ──────────────────────────────────
   const checklistTasks = [
     { id: 'c1',  text: 'Wash used dishes and utensils' },
     { id: 'c2',  text: 'Turn off all appliances (except refrigerator and Wi-Fi router)' },
@@ -1287,17 +1486,16 @@
     document.getElementById('progressFill').style.width = pct + '%';
     const txt = document.getElementById('progressText');
     if (n === total) {
-      txt.innerHTML = '<strong style="color:#34c759">🎉 All done — have a safe trip!</strong>';
+      txt.innerHTML = '<strong style="color:var(--gold)">🎉 All done — have a safe trip!</strong>';
     } else {
       txt.textContent = n + ' of ' + total + ' completed';
     }
   }
 
-  // ── Init ────────────────────────────────────────────────────────
+  // ── Init ─────────────────────────────────────────────────
   renderChecklist();
   triggerInView();
 
-  // Observe cards as sections become visible
   window.addEventListener('DOMContentLoaded', () => {
     triggerInView();
   });
